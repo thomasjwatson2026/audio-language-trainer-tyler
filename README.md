@@ -1,25 +1,20 @@
-# Audio Language Trainer
+# Audio Response Trainer (Spanish + Chinese)
 
-Mobile-friendly Spanish + Chinese audio-first quiz app.
+Audio-first mobile web app for speaking practice.
 
-## Features
+## What it does
+- Plays a spoken prompt (Spanish or Chinese)
+- You respond out loud (self practice)
+- Tap **Show Correct Response** to compare
+- Tap **Play Correct Response** to hear ideal reply
+- No auto-grading (by design)
 
-- Audio prompt with browser text-to-speech
-- Voice answer input (Web Speech API)
-- Audio-only mode (hide text prompts)
-- Spanish + Chinese + mixed mode
-- Instant score tracking
-
-## Best browser support
-
-- Android Chrome: best
-- Desktop Chrome/Edge: good
-- iPhone Safari: playback works, speech recognition support may vary
+## Why audio sometimes fails on phones
+Some browsers require a direct user tap before speech starts. This app includes **Enable Audio** to unlock speech synthesis reliably.
 
 ## Run locally
-
 ```bash
 cd language-audio-trainer
 python3 -m http.server 8080
-# open http://localhost:8080
+# http://localhost:8080
 ```

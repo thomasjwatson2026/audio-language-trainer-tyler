@@ -2,78 +2,45 @@
   color-scheme: dark;
   --bg: #0f1115;
   --card: #1a1f2b;
-  --text: #ecf0f8;
-  --muted: #9aa6bd;
-  --accent: #67a6ff;
-  --ok: #68d391;
-  --bad: #fc8181;
+  --text: #edf2ff;
+  --muted: #a4aec2;
+  --accent: #6aa5ff;
 }
-
 * { box-sizing: border-box; }
-
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
-
-.app {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-h1 { margin: 8px 0 0; font-size: 1.6rem; }
-.sub { color: var(--muted); margin-top: 6px; }
-
+.app { max-width: 780px; margin: 0 auto; padding: 14px; }
+h1 { margin: 8px 0 0; }
+.sub { margin-top: 6px; color: var(--muted); }
 .card {
   background: var(--card);
   border-radius: 14px;
   padding: 14px;
   margin: 12px 0;
 }
-
-.controls, .answerRow {
-  display: grid;
-  gap: 10px;
-}
-
-.controls label {
-  display: grid;
-  gap: 6px;
-}
-
-.inline { display: flex !important; align-items: center; gap: 8px; }
-
-select, input, button {
+label { display: grid; gap: 6px; }
+select, button {
+  border: 1px solid #2a3448;
   border-radius: 10px;
-  border: 1px solid #2b3345;
-  background: #121722;
+  background: #111827;
   color: var(--text);
   padding: 10px;
   font-size: 1rem;
 }
-
 button { cursor: pointer; }
-button.primary { background: var(--accent); border: none; color: #0a1020; font-weight: 700; }
-
-.promptRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
+button.primary { background: var(--accent); color: #081126; border: none; font-weight: 700; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.muted { color: var(--muted); }
+.answer {
+  margin-top: 12px;
+  border-top: 1px solid #2d3a50;
+  padding-top: 12px;
 }
-
-#promptText { font-size: 1.05rem; margin: 0; }
-#feedback { min-height: 24px; font-weight: 700; }
-#heardText, .muted { color: var(--muted); }
-.ok { color: var(--ok); }
-.bad { color: var(--bad); }
-
-@media (min-width: 700px) {
-  .controls { grid-template-columns: 1fr 1fr; }
-  .controls .inline, .controls #newRoundBtn { grid-column: span 2; }
-  .answerRow { grid-template-columns: 1fr 1fr auto; }
-}
+.hidden { display: none; }
+#promptHint { font-size: 1.08rem; }
+ol { margin: 0; padding-left: 20px; }
+li { margin: 6px 0; }

@@ -3,72 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Audio Language Trainer</title>
+    <title>Audio Response Trainer</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
-      <h1>🎧 Audio Language Trainer</h1>
-      <p class="sub">Spanish + Chinese • audio-first quiz</p>
+      <h1>🎧 Audio Response Trainer</h1>
+      <p class="sub">Spanish + Chinese • listen first • no auto-grading</p>
 
       <section class="card controls">
         <label>
-          Language
+          Language set
           <select id="languageSelect">
-            <option value="mixed">Mixed</option>
-            <option value="es">Spanish</option>
-            <option value="zh">Chinese</option>
+            <option value="mixed">Mixed (Spanish + Chinese)</option>
+            <option value="es">Spanish only</option>
+            <option value="zh">Chinese only</option>
           </select>
         </label>
 
-        <label>
-          Direction
-          <select id="directionSelect">
-            <option value="toEnglish">Audio foreign ➜ answer in English</option>
-            <option value="toForeign">Audio English ➜ answer in foreign language</option>
-          </select>
-        </label>
+        <div class="row">
+          <button id="unlockBtn" class="primary">🔓 Enable Audio</button>
+          <button id="nextBtn">🎲 New Prompt</button>
+          <button id="playPromptBtn">🔊 Play Prompt</button>
+        </div>
 
-        <label class="inline">
-          <input type="checkbox" id="audioOnly" checked />
-          Audio-only mode (hide text prompt)
-        </label>
-
-        <button id="newRoundBtn" class="primary">Start / Next</button>
+        <p id="status" class="muted">Tap "Enable Audio" once after page loads.</p>
       </section>
 
       <section class="card quiz">
-        <div class="promptRow">
-          <p id="promptText">Press Start</p>
-          <button id="playBtn">🔊 Play Again</button>
+        <h2>Prompt</h2>
+        <p id="promptHint">Press New Prompt</p>
+
+        <div class="row">
+          <button id="revealBtn" class="primary">✅ Show Correct Response</button>
+          <button id="playAnswerBtn">🔊 Play Correct Response</button>
         </div>
 
-        <div class="answerRow">
-          <button id="recordBtn" class="primary">🎙️ Answer by Voice</button>
-          <input id="textAnswer" type="text" placeholder="or type answer" />
-          <button id="submitBtn">Check</button>
+        <div id="answerBox" class="answer hidden">
+          <p><strong>Correct response:</strong> <span id="answerText"></span></p>
+          <p class="muted" id="answerTranslit"></p>
+          <p class="muted" id="answerEnglish"></p>
         </div>
-
-        <p id="heardText" class="muted"></p>
-        <p id="feedback"></p>
-
-        <details>
-          <summary>Reveal answer</summary>
-          <p id="reveal"></p>
-        </details>
       </section>
 
-      <section class="card stats">
-        <p><strong>Score:</strong> <span id="score">0</span> / <span id="total">0</span></p>
-      </section>
-
-      <section class="card tips">
-        <h2>Phone tips</h2>
-        <ul>
-          <li>Use Chrome on Android for best voice input support.</li>
-          <li>On iPhone, voice recognition support can be limited by browser.</li>
-          <li>Allow microphone permissions when prompted.</li>
-        </ul>
+      <section class="card notes">
+        <h3>How to use</h3>
+        <ol>
+          <li>Tap <strong>Enable Audio</strong> once.</li>
+          <li>Tap <strong>New Prompt</strong> then <strong>Play Prompt</strong>.</li>
+          <li>Say your answer out loud (self-practice).</li>
+          <li>Tap <strong>Show Correct Response</strong> to compare.</li>
+        </ol>
       </section>
     </main>
 
