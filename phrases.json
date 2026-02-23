@@ -1,0 +1,344 @@
+[
+  {
+    "id": 1,
+    "lang": "es",
+    "prompt": "Hola, ¿cómo estás?",
+    "response": "Estoy bien, gracias.",
+    "english": "I am good, thank you.",
+    "promptAudio": "audio/01_es_prompt.mp3",
+    "answerAudio": "audio/01_es_answer.mp3"
+  },
+  {
+    "id": 2,
+    "lang": "es",
+    "prompt": "¿Cómo te llamas?",
+    "response": "Me llamo Tyler.",
+    "english": "My name is Tyler.",
+    "promptAudio": "audio/02_es_prompt.mp3",
+    "answerAudio": "audio/02_es_answer.mp3"
+  },
+  {
+    "id": 3,
+    "lang": "es",
+    "prompt": "Mucho gusto.",
+    "response": "Igualmente.",
+    "english": "Likewise.",
+    "promptAudio": "audio/03_es_prompt.mp3",
+    "answerAudio": "audio/03_es_answer.mp3"
+  },
+  {
+    "id": 4,
+    "lang": "es",
+    "prompt": "¿De dónde eres?",
+    "response": "Soy de Estados Unidos.",
+    "english": "I am from the United States.",
+    "promptAudio": "audio/04_es_prompt.mp3",
+    "answerAudio": "audio/04_es_answer.mp3"
+  },
+  {
+    "id": 5,
+    "lang": "es",
+    "prompt": "¿Hablas inglés?",
+    "response": "Sí, hablo un poco.",
+    "english": "Yes, I speak a little.",
+    "promptAudio": "audio/05_es_prompt.mp3",
+    "answerAudio": "audio/05_es_answer.mp3"
+  },
+  {
+    "id": 6,
+    "lang": "es",
+    "prompt": "No entiendo.",
+    "response": "Puedo repetir, por favor.",
+    "english": "Can you repeat, please.",
+    "promptAudio": "audio/06_es_prompt.mp3",
+    "answerAudio": "audio/06_es_answer.mp3"
+  },
+  {
+    "id": 7,
+    "lang": "es",
+    "prompt": "¿Puedes hablar más despacio?",
+    "response": "Sí, claro.",
+    "english": "Yes, of course.",
+    "promptAudio": "audio/07_es_prompt.mp3",
+    "answerAudio": "audio/07_es_answer.mp3"
+  },
+  {
+    "id": 8,
+    "lang": "es",
+    "prompt": "¿Dónde está el baño?",
+    "response": "Está allí.",
+    "english": "It is over there.",
+    "promptAudio": "audio/08_es_prompt.mp3",
+    "answerAudio": "audio/08_es_answer.mp3"
+  },
+  {
+    "id": 9,
+    "lang": "es",
+    "prompt": "¿Cuánto cuesta?",
+    "response": "Cuesta diez dólares.",
+    "english": "It costs ten dollars.",
+    "promptAudio": "audio/09_es_prompt.mp3",
+    "answerAudio": "audio/09_es_answer.mp3"
+  },
+  {
+    "id": 10,
+    "lang": "es",
+    "prompt": "Quiero agua, por favor.",
+    "response": "Aquí tienes agua.",
+    "english": "Here is water.",
+    "promptAudio": "audio/10_es_prompt.mp3",
+    "answerAudio": "audio/10_es_answer.mp3"
+  },
+  {
+    "id": 11,
+    "lang": "es",
+    "prompt": "¿Qué hora es?",
+    "response": "Son las tres.",
+    "english": "It is three o’clock.",
+    "promptAudio": "audio/11_es_prompt.mp3",
+    "answerAudio": "audio/11_es_answer.mp3"
+  },
+  {
+    "id": 12,
+    "lang": "es",
+    "prompt": "Tengo hambre.",
+    "response": "Vamos a comer.",
+    "english": "Let’s go eat.",
+    "promptAudio": "audio/12_es_prompt.mp3",
+    "answerAudio": "audio/12_es_answer.mp3"
+  },
+  {
+    "id": 13,
+    "lang": "es",
+    "prompt": "Tengo sueño.",
+    "response": "Descansa un poco.",
+    "english": "Rest a little.",
+    "promptAudio": "audio/13_es_prompt.mp3",
+    "answerAudio": "audio/13_es_answer.mp3"
+  },
+  {
+    "id": 14,
+    "lang": "es",
+    "prompt": "Estoy perdido.",
+    "response": "Te ayudo con el mapa.",
+    "english": "I will help you with the map.",
+    "promptAudio": "audio/14_es_prompt.mp3",
+    "answerAudio": "audio/14_es_answer.mp3"
+  },
+  {
+    "id": 15,
+    "lang": "es",
+    "prompt": "Necesito ayuda.",
+    "response": "Estoy aquí para ayudarte.",
+    "english": "I am here to help you.",
+    "promptAudio": "audio/15_es_prompt.mp3",
+    "answerAudio": "audio/15_es_answer.mp3"
+  },
+  {
+    "id": 16,
+    "lang": "es",
+    "prompt": "¿Dónde vives?",
+    "response": "Vivo en California.",
+    "english": "I live in California.",
+    "promptAudio": "audio/16_es_prompt.mp3",
+    "answerAudio": "audio/16_es_answer.mp3"
+  },
+  {
+    "id": 17,
+    "lang": "es",
+    "prompt": "¿Te gusta la música?",
+    "response": "Sí, me encanta la música.",
+    "english": "Yes, I love music.",
+    "promptAudio": "audio/17_es_prompt.mp3",
+    "answerAudio": "audio/17_es_answer.mp3"
+  },
+  {
+    "id": 18,
+    "lang": "es",
+    "prompt": "Gracias por tu tiempo.",
+    "response": "De nada.",
+    "english": "You are welcome.",
+    "promptAudio": "audio/18_es_prompt.mp3",
+    "answerAudio": "audio/18_es_answer.mp3"
+  },
+  {
+    "id": 19,
+    "lang": "es",
+    "prompt": "Hasta mañana.",
+    "response": "Nos vemos mañana.",
+    "english": "See you tomorrow.",
+    "promptAudio": "audio/19_es_prompt.mp3",
+    "answerAudio": "audio/19_es_answer.mp3"
+  },
+  {
+    "id": 20,
+    "lang": "zh",
+    "prompt": "你好，你怎么样？",
+    "response": "我很好，谢谢。",
+    "english": "I am good, thank you.",
+    "promptAudio": "audio/20_zh_prompt.mp3",
+    "answerAudio": "audio/20_zh_answer.mp3"
+  },
+  {
+    "id": 21,
+    "lang": "zh",
+    "prompt": "你叫什么名字？",
+    "response": "我叫 Tyler。",
+    "english": "My name is Tyler.",
+    "promptAudio": "audio/21_zh_prompt.mp3",
+    "answerAudio": "audio/21_zh_answer.mp3"
+  },
+  {
+    "id": 22,
+    "lang": "zh",
+    "prompt": "很高兴认识你。",
+    "response": "我也很高兴认识你。",
+    "english": "Nice to meet you too.",
+    "promptAudio": "audio/22_zh_prompt.mp3",
+    "answerAudio": "audio/22_zh_answer.mp3"
+  },
+  {
+    "id": 23,
+    "lang": "zh",
+    "prompt": "你从哪里来？",
+    "response": "我来自美国。",
+    "english": "I come from the U.S.",
+    "promptAudio": "audio/23_zh_prompt.mp3",
+    "answerAudio": "audio/23_zh_answer.mp3"
+  },
+  {
+    "id": 24,
+    "lang": "zh",
+    "prompt": "你会说英语吗？",
+    "response": "会一点。",
+    "english": "A little.",
+    "promptAudio": "audio/24_zh_prompt.mp3",
+    "answerAudio": "audio/24_zh_answer.mp3"
+  },
+  {
+    "id": 25,
+    "lang": "zh",
+    "prompt": "我不懂。",
+    "response": "请再说一遍。",
+    "english": "Please say it again.",
+    "promptAudio": "audio/25_zh_prompt.mp3",
+    "answerAudio": "audio/25_zh_answer.mp3"
+  },
+  {
+    "id": 26,
+    "lang": "zh",
+    "prompt": "请说慢一点。",
+    "response": "好的，没问题。",
+    "english": "Okay, no problem.",
+    "promptAudio": "audio/26_zh_prompt.mp3",
+    "answerAudio": "audio/26_zh_answer.mp3"
+  },
+  {
+    "id": 27,
+    "lang": "zh",
+    "prompt": "洗手间在哪里？",
+    "response": "在那边。",
+    "english": "Over there.",
+    "promptAudio": "audio/27_zh_prompt.mp3",
+    "answerAudio": "audio/27_zh_answer.mp3"
+  },
+  {
+    "id": 28,
+    "lang": "zh",
+    "prompt": "多少钱？",
+    "response": "十美元。",
+    "english": "Ten dollars.",
+    "promptAudio": "audio/28_zh_prompt.mp3",
+    "answerAudio": "audio/28_zh_answer.mp3"
+  },
+  {
+    "id": 29,
+    "lang": "zh",
+    "prompt": "我想要水。",
+    "response": "给你水。",
+    "english": "Here is water.",
+    "promptAudio": "audio/29_zh_prompt.mp3",
+    "answerAudio": "audio/29_zh_answer.mp3"
+  },
+  {
+    "id": 30,
+    "lang": "zh",
+    "prompt": "现在几点？",
+    "response": "三点。",
+    "english": "Three o’clock.",
+    "promptAudio": "audio/30_zh_prompt.mp3",
+    "answerAudio": "audio/30_zh_answer.mp3"
+  },
+  {
+    "id": 31,
+    "lang": "zh",
+    "prompt": "我饿了。",
+    "response": "我们去吃饭吧。",
+    "english": "Let us go eat.",
+    "promptAudio": "audio/31_zh_prompt.mp3",
+    "answerAudio": "audio/31_zh_answer.mp3"
+  },
+  {
+    "id": 32,
+    "lang": "zh",
+    "prompt": "我困了。",
+    "response": "休息一下。",
+    "english": "Take a rest.",
+    "promptAudio": "audio/32_zh_prompt.mp3",
+    "answerAudio": "audio/32_zh_answer.mp3"
+  },
+  {
+    "id": 33,
+    "lang": "zh",
+    "prompt": "我迷路了。",
+    "response": "我帮你看地图。",
+    "english": "I will help with the map.",
+    "promptAudio": "audio/33_zh_prompt.mp3",
+    "answerAudio": "audio/33_zh_answer.mp3"
+  },
+  {
+    "id": 34,
+    "lang": "zh",
+    "prompt": "我需要帮助。",
+    "response": "我来帮你。",
+    "english": "I will help you.",
+    "promptAudio": "audio/34_zh_prompt.mp3",
+    "answerAudio": "audio/34_zh_answer.mp3"
+  },
+  {
+    "id": 35,
+    "lang": "zh",
+    "prompt": "你住在哪里？",
+    "response": "我住在加州。",
+    "english": "I live in California.",
+    "promptAudio": "audio/35_zh_prompt.mp3",
+    "answerAudio": "audio/35_zh_answer.mp3"
+  },
+  {
+    "id": 36,
+    "lang": "zh",
+    "prompt": "你喜欢音乐吗？",
+    "response": "喜欢，我很喜欢音乐。",
+    "english": "Yes, I like music a lot.",
+    "promptAudio": "audio/36_zh_prompt.mp3",
+    "answerAudio": "audio/36_zh_answer.mp3"
+  },
+  {
+    "id": 37,
+    "lang": "zh",
+    "prompt": "谢谢你的时间。",
+    "response": "不客气。",
+    "english": "You are welcome.",
+    "promptAudio": "audio/37_zh_prompt.mp3",
+    "answerAudio": "audio/37_zh_answer.mp3"
+  },
+  {
+    "id": 38,
+    "lang": "zh",
+    "prompt": "明天见。",
+    "response": "明天见！",
+    "english": "See you tomorrow!",
+    "promptAudio": "audio/38_zh_prompt.mp3",
+    "answerAudio": "audio/38_zh_answer.mp3"
+  }
+]
