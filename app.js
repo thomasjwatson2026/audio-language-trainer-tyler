@@ -5,12 +5,16 @@ const el = {
   status: document.getElementById('status'),
   currentText: document.getElementById('currentText'),
   list: document.getElementById('list'),
+  convButtons: document.getElementById('convButtons'),
+  stopConv: document.getElementById('stopConv'),
 };
 
 const audio = new Audio();
 audio.preload = 'auto';
 let phrases = [];
+let conversations = [];
 let current = null;
+let stopConversation = false;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const setStatus = (s) => (el.status.textContent = s);
@@ -18,12 +22,14 @@ const setStatus = (s) => (el.status.textContent = s);
 async function loadData() {
   const zh = await (await fetch('toolkit38.json', { cache: 'no-store' })).json();
   const es = await (await fetch('spanish38.json', { cache: 'no-store' })).json();
+  conversations = await (await fetch('conversations.json', { cache: 'no-store' })).json();
   phrases = zh.map((z) => {
     const s = es.find((x) => x.id === z.id) || { spanish: '' };
     return { ...z, spanish: s.spanish };
   });
+  renderConversationButtons();
   renderList();
-  setStatus(`Loaded ${phrases.length} phrases.`);
+  setStatus(`Loaded ${phrases.length} phrases + ${conversations.length} conversations.`);
 }
 
 async function play(src) {
@@ -77,6 +83,45 @@ function renderList() {
   }
 }
 
+function renderConversationButtons() {
+  el.convButtons.innerHTML = '';
+  for (const c of conversations) {
+    const b = document.createElement('button');
+    b.className = 'primary';
+    b.textContent = `🗣️ Conversation ${c.id}`;
+    b.title = c.title;
+    b.addEventListener('click', () => playConversation(c.id));
+    el.convButtons.appendChild(b);
+  }
+}
+
+async function playConversation(convId) {
+  const conv = conversations.find((x) => x.id === convId);
+  if (!conv) return;
+  stopConversation = false;
+  setStatus(`Playing conversation ${conv.id}: ${conv.title}`);
+
+  for (let i = 0; i < conv.turns.length; i++) {
+    if (stopConversation) return setStatus('Conversation stopped.');
+    const t = conv.turns[i];
+    const n = i + 1;
+    const prefix = `conv_audio/c${conv.id}_t${n}`;
+
+    setStatus(`Conversation ${conv.id} • ${t.speaker}: Spanish`);
+    const ok1 = await play(`${prefix}_es.mp3`);
+    if (!ok1 || stopConversation) return setStatus('Conversation stopped/failed.');
+
+    await sleep(220);
+    setStatus(`Conversation ${conv.id} • ${t.speaker}: Chinese`);
+    const ok2 = await play(`${prefix}_zh.mp3`);
+    if (!ok2 || stopConversation) return setStatus('Conversation stopped/failed.');
+
+    await sleep(240);
+  }
+
+  setStatus(`Conversation ${conv.id} complete.`);
+}
+
 function randomItem() { return phrases[Math.floor(Math.random() * phrases.length)]; }
 
 async function playNew() {
@@ -103,5 +148,10 @@ function show() {
 el.playNew.addEventListener('click', playNew);
 el.replay.addEventListener('click', replay);
 el.show.addEventListener('click', show);
+el.stopConv.addEventListener('click', () => {
+  stopConversation = true;
+  audio.pause();
+  setStatus('Conversation stopped.');
+});
 
 loadData().catch(() => setStatus('Failed to load phrase files'));
