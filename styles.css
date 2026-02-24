@@ -5,6 +5,12 @@
 button{padding:10px;border-radius:10px;border:1px solid #2b3650;background:#121927;color:var(--text);cursor:pointer}
 .primary{background:var(--accent);border:none;color:#071224;font-weight:800}.big{font-size:1.05rem}
 .row{display:flex;gap:8px;flex-wrap:wrap}
+.toolbar{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.main-actions{flex:1}
+.settings-menu{margin-left:auto}
+.settings-menu summary{list-style:none;cursor:pointer;padding:8px 10px;border:1px solid #2b3650;border-radius:10px;background:#121927}
+.settings-menu[open] .settings-body{margin-top:8px;display:grid;gap:8px;min-width:170px}
+.settings-body label{display:grid;gap:6px}
 .muted{color:var(--muted)}.hidden{display:none}
 #currentText{margin-top:10px;padding:10px;border:1px solid #30405d;border-radius:10px}
 .list-row{display:grid;grid-template-columns:1.2fr 1.2fr 1.2fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #2a3448}

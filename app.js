@@ -168,10 +168,17 @@ el.stopConv.addEventListener('click', () => {
   audio.pause();
   setStatus('Conversation stopped.');
 });
-el.refreshBtn.addEventListener('click', () => {
+el.refreshBtn.addEventListener('click', async () => {
+  try {
+    if (window.caches && caches.keys) {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k)));
+    }
+  } catch {}
   const u = new URL(window.location.href);
   u.searchParams.set('v', Date.now().toString());
-  window.location.href = u.toString();
+  window.location.replace(u.toString());
+  window.location.reload();
 });
 
 applySpeed();
