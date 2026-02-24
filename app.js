@@ -7,6 +7,7 @@ const el = {
   list: document.getElementById('list'),
   convButtons: document.getElementById('convButtons'),
   stopConv: document.getElementById('stopConv'),
+  speed: document.getElementById('speed'),
 };
 
 const audio = new Audio();
@@ -37,6 +38,7 @@ async function play(src) {
     audio.pause();
     audio.src = src;
     audio.currentTime = 0;
+    audio.playbackRate = Number(el.speed?.value || 1);
     await audio.play();
     return new Promise((resolve) => {
       audio.onended = () => resolve(true);
@@ -69,7 +71,10 @@ function renderList() {
     row.innerHTML = `
       <div><div class="pill">#${p.id} English</div>${p.english}</div>
       <div><div class="pill">Spanish</div>${p.spanish}</div>
-      <div><div class="pill">Chinese pronunciation (English sounds)</div>${p.pronounce}</div>
+      <div>
+        <div class="pill">Chinese pinyin</div>${p.pinyin}
+        <div class="pill">(${p.pronounce})</div>
+      </div>
       <div class="row">
         <button data-action="es">🔊 ES</button>
         <button data-action="zh">🔊 ZH</button>
@@ -141,7 +146,8 @@ function show() {
   el.currentText.innerHTML = `
     <div><strong>English:</strong> ${current.english}</div>
     <div><strong>Spanish:</strong> ${current.spanish}</div>
-    <div><strong>Chinese pronunciation (English sounds):</strong> ${current.pronounce}</div>
+    <div><strong>Chinese pinyin:</strong> ${current.pinyin}</div>
+    <div><strong>English-sound hint:</strong> (${current.pronounce})</div>
   `;
 }
 
