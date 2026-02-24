@@ -9,105 +9,94 @@ const el = {
 
 const audio = new Audio();
 audio.preload = 'auto';
-
 let phrases = [];
 let current = null;
 
-function setStatus(s){ el.status.textContent = s; }
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const setStatus = (s) => (el.status.textContent = s);
 
-function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
-
-async function loadData(){
-  const data = await (await fetch('phrases.json', {cache:'no-store'})).json();
-
-  const es = data.filter(p => p.lang === 'es');
-  const zh = data.filter(p => p.lang === 'zh');
-  const n = Math.min(es.length, zh.length);
-
-  phrases = Array.from({length: n}, (_, i) => ({
-    id: i + 1,
-    english: es[i].english,
-    spanish: es[i].prompt,
-    chinese: zh[i].prompt,
-    esAudio: es[i].promptAudio,
-    zhAudio: zh[i].promptAudio,
-  }));
-
+async function loadData() {
+  phrases = await (await fetch('toolkit38.json', { cache: 'no-store' })).json();
   renderList();
-  setStatus(`Loaded ${phrases.length} phrase pairs.`);
+  setStatus(`Loaded ${phrases.length} phrases.`);
 }
 
-function renderList(){
-  el.list.innerHTML = '';
-  phrases.forEach(p => {
-    const row = document.createElement('div');
-    row.className = 'list-row';
-    row.innerHTML = `
-      <div><div class="pill">Spanish</div>${p.spanish}</div>
-      <div><div class="pill">Chinese</div>${p.chinese}</div>
-      <button data-id="${p.id}">▶️ Play ES→ZH</button>
-    `;
-    row.querySelector('button').addEventListener('click', () => playPairById(p.id));
-    el.list.appendChild(row);
-  });
-}
-
-async function play(src){
+async function play(src) {
   try {
     audio.pause();
     audio.src = src;
     audio.currentTime = 0;
     await audio.play();
-    return new Promise(res => {
-      audio.onended = () => res(true);
-      audio.onerror = () => res(false);
+    return new Promise((resolve) => {
+      audio.onended = () => resolve(true);
+      audio.onerror = () => resolve(false);
     });
-  } catch (e) {
+  } catch {
     return false;
   }
 }
 
-async function playPair(p){
-  current = p;
-  setStatus('Playing Spanish...');
-  const a = await play(p.esAudio);
-  if (!a) return setStatus('Could not play Spanish audio.');
-  await sleep(350);
+async function playPair(item) {
+  current = item;
+  setStatus('Playing English...');
+  const a = await play(`audio38/${String(item.id).padStart(2, '0')}_en.mp3`);
+  if (!a) return setStatus('English audio failed.');
+  await sleep(300);
   setStatus('Playing Chinese...');
-  const b = await play(p.zhAudio);
-  if (!b) return setStatus('Could not play Chinese audio.');
+  const b = await play(`audio38/${String(item.id).padStart(2, '0')}_zh.mp3`);
+  if (!b) return setStatus('Chinese audio failed.');
   setStatus('Done.');
 }
 
-async function playNew(){
+function renderList() {
+  el.list.innerHTML = '';
+  for (const p of phrases) {
+    const row = document.createElement('div');
+    row.className = 'list-row';
+    row.innerHTML = `
+      <div><div class="pill">#${p.id} English</div>${p.english}</div>
+      <div><div class="pill">Pinyin</div>${p.pinyin}</div>
+      <div><div class="pill">Chinese</div>${p.chinese}</div>
+      <div class="row">
+        <button data-action="en">🔊 EN</button>
+        <button data-action="zh">🔊 ZH</button>
+        <button data-action="pair" class="primary">▶️ EN→ZH</button>
+      </div>
+    `;
+    row.querySelector('[data-action="en"]').addEventListener('click', () => play(`audio38/${String(p.id).padStart(2, '0')}_en.mp3`));
+    row.querySelector('[data-action="zh"]').addEventListener('click', () => play(`audio38/${String(p.id).padStart(2, '0')}_zh.mp3`));
+    row.querySelector('[data-action="pair"]').addEventListener('click', () => playPair(p));
+    el.list.appendChild(row);
+  }
+}
+
+function randomItem() {
+  return phrases[Math.floor(Math.random() * phrases.length)];
+}
+
+async function playNew() {
   if (!phrases.length) return;
-  const p = phrases[Math.floor(Math.random() * phrases.length)];
   el.currentText.classList.add('hidden');
-  await playPair(p);
+  await playPair(randomItem());
 }
 
-async function playPairById(id){
-  const p = phrases.find(x => x.id === id);
-  if (p) await playPair(p);
-}
-
-function replay(){
+function replay() {
   if (!current) return setStatus('Press Play New first.');
   playPair(current);
 }
 
-function showText(){
+function show() {
   if (!current) return setStatus('Press Play New first.');
   el.currentText.classList.remove('hidden');
   el.currentText.innerHTML = `
     <div><strong>English:</strong> ${current.english}</div>
-    <div><strong>Spanish:</strong> ${current.spanish}</div>
+    <div><strong>Pinyin:</strong> ${current.pinyin}</div>
     <div><strong>Chinese:</strong> ${current.chinese}</div>
   `;
 }
 
 el.playNew.addEventListener('click', playNew);
 el.replay.addEventListener('click', replay);
-el.show.addEventListener('click', showText);
+el.show.addEventListener('click', show);
 
-loadData().catch(() => setStatus('Failed to load phrases.json'));
+loadData().catch(() => setStatus('Failed to load toolkit38.json'));
