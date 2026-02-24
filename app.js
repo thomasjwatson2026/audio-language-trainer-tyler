@@ -79,7 +79,8 @@ function renderList() {
       <div><div class="pill">#${p.id} English</div>${p.english}</div>
       <div><div class="pill">Spanish</div>${p.spanish}</div>
       <div>
-        <div class="pill">Chinese pinyin</div>${p.pinyin}
+        <div class="pill">Chinese</div>${p.chinese}
+        <div class="pill">Pinyin</div>${p.pinyin}
         <div class="pill">(${p.pronounce})</div>
       </div>
       <div class="row">
@@ -153,7 +154,8 @@ function show() {
   el.currentText.innerHTML = `
     <div><strong>English:</strong> ${current.english}</div>
     <div><strong>Spanish:</strong> ${current.spanish}</div>
-    <div><strong>Chinese pinyin:</strong> ${current.pinyin}</div>
+    <div><strong>Chinese:</strong> ${current.chinese}</div>
+    <div><strong>Pinyin:</strong> ${current.pinyin}</div>
     <div><strong>English-sound hint:</strong> (${current.pronounce})</div>
   `;
 }
