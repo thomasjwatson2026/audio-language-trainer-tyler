@@ -68,5 +68,65 @@
       {"speaker":"A","es":"Vamos juntos algún día.","zh":"我们改天一起去吧。"},
       {"speaker":"B","es":"¡Buena idea!","zh":"好主意！"}
     ]
+  },
+  {
+    "id": 6,
+    "title": "At a cafe",
+    "turns": [
+      {"speaker":"A","es":"¡Hola!","zh":"你好。"},
+      {"speaker":"B","es":"Hola, ¿qué quieres?","zh":"你好，你想要什么？"},
+      {"speaker":"A","es":"Quiero agua.","zh":"我想要水。"},
+      {"speaker":"B","es":"¿Tiene agua? Sí.","zh":"你有水吗？有。"},
+      {"speaker":"A","es":"Gracias.","zh":"谢谢你！"},
+      {"speaker":"B","es":"De nada.","zh":"不客气。"}
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Language meetup",
+    "turns": [
+      {"speaker":"A","es":"¿Hablas español?","zh":"你会说中文吗？"},
+      {"speaker":"B","es":"Puedo hablar español.","zh":"我会说中文。"},
+      {"speaker":"A","es":"Hablo un poco de español.","zh":"我会说一点中文。"},
+      {"speaker":"B","es":"Estoy aprendiendo español.","zh":"我在学习中文。"},
+      {"speaker":"A","es":"¿Dónde aprendiste el español?","zh":"你在哪里学习中文？"},
+      {"speaker":"B","es":"Aprendí el español en línea.","zh":"我在网上学习中文。"}
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Street market",
+    "turns": [
+      {"speaker":"A","es":"¿Qué es esto?","zh":"这个是什么？"},
+      {"speaker":"B","es":"Quiero esto.","zh":"我要这个。"},
+      {"speaker":"A","es":"Quiero comprar esto.","zh":"我想买这个。"},
+      {"speaker":"B","es":"¿Cuánto cuesta?","zh":"这个多少钱？"},
+      {"speaker":"A","es":"Cuesta tres dólares.","zh":"这个三块钱。"},
+      {"speaker":"B","es":"Perfecto, lo compro.","zh":"很好，我买了。"}
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Home and city",
+    "turns": [
+      {"speaker":"A","es":"¿Dónde vives?","zh":"你住在哪里？"},
+      {"speaker":"B","es":"Vivo en Nueva York.","zh":"我住在纽约。"},
+      {"speaker":"A","es":"¿De dónde eres?","zh":"你从哪里来？"},
+      {"speaker":"B","es":"Soy de Los Estados Unidos.","zh":"我是美国人。"},
+      {"speaker":"A","es":"Qué bien.","zh":"太好了。"},
+      {"speaker":"B","es":"Sí, me gusta vivir allí.","zh":"是的，我喜欢住在那里。"}
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Food memories",
+    "turns": [
+      {"speaker":"A","es":"He comido comida mexicana.","zh":"我吃过中国菜。"},
+      {"speaker":"B","es":"Nunca he comido comida mexicana.","zh":"我从来没吃过中国菜。"},
+      {"speaker":"A","es":"Quiero comer comida mexicana.","zh":"我想吃中国菜。"},
+      {"speaker":"B","es":"Yo también quiero comer.","zh":"我也想吃。"},
+      {"speaker":"A","es":"Quiero beber tequila.","zh":"我想喝中国饮料。"},
+      {"speaker":"B","es":"Yo quiero agua.","zh":"我想要水。"}
+    ]
   }
 ]

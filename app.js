@@ -16,6 +16,7 @@ let phrases = [];
 let conversations = [];
 let current = null;
 let stopConversation = false;
+let appSpeed = 1;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const setStatus = (s) => (el.status.textContent = s);
@@ -33,12 +34,18 @@ async function loadData() {
   setStatus(`Loaded ${phrases.length} phrases + ${conversations.length} conversations.`);
 }
 
+function applySpeed() {
+  appSpeed = Number(el.speed?.value || 1);
+  audio.playbackRate = appSpeed;
+  setStatus(`Speed set to ${appSpeed}x`);
+}
+
 async function play(src) {
   try {
     audio.pause();
     audio.src = src;
     audio.currentTime = 0;
-    audio.playbackRate = Number(el.speed?.value || 1);
+    audio.playbackRate = appSpeed;
     await audio.play();
     return new Promise((resolve) => {
       audio.onended = () => resolve(true);
@@ -154,10 +161,12 @@ function show() {
 el.playNew.addEventListener('click', playNew);
 el.replay.addEventListener('click', replay);
 el.show.addEventListener('click', show);
+el.speed.addEventListener('change', applySpeed);
 el.stopConv.addEventListener('click', () => {
   stopConversation = true;
   audio.pause();
   setStatus('Conversation stopped.');
 });
 
+applySpeed();
 loadData().catch(() => setStatus('Failed to load phrase files'));
