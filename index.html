@@ -3,49 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>One-Button Audio Trainer</title>
+    <title>Spanish ↔ Chinese Audio Trainer</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
-      <h1>🎧 One-Button Audio Trainer</h1>
-      <p class="sub">Tap one main button to hear a prompt. Then reveal answer.</p>
+      <h1>🎧 Spanish → Chinese Trainer</h1>
+      <p class="sub">Learn by hearing Spanish first, then the same phrase in Chinese.</p>
 
       <section class="card">
-        <label>
-          Language
-          <select id="lang">
-            <option value="mixed">Mixed</option>
-            <option value="es">Spanish</option>
-            <option value="zh">Chinese</option>
-          </select>
-        </label>
-
-        <div class="primary-wrap">
-          <button id="mainBtn" class="primary big">▶️ Play New Prompt</button>
+        <h2>Practice (Main)</h2>
+        <div class="row">
+          <button id="playNew" class="primary big">▶️ Play New (Spanish → Chinese)</button>
+          <button id="replay">🔁 Replay Current</button>
+          <button id="show">✅ Show Text</button>
         </div>
-
-        <div class="row secondary">
-          <button id="replayBtn">🔁 Replay Prompt</button>
-          <button id="showBtn">✅ Show Answer</button>
-          <button id="answerBtn">🔊 Play Answer</button>
-        </div>
-
         <p id="status" class="muted">Ready.</p>
+        <div id="currentText" class="hidden"></div>
       </section>
 
-      <section class="card hidden" id="answerCard">
-        <p><strong>Correct response:</strong> <span id="answerText"></span></p>
-        <p class="muted" id="answerEn"></p>
-      </section>
-
-      <section class="card details">
-        <summary><strong>Permissions/help (only if needed)</strong></summary>
-        <ul>
-          <li>No microphone permission required for this version.</li>
-          <li>If no sound: turn off silent mode, raise volume, and try Chrome/Safari.</li>
-          <li>GitHub Pages is fine for audio files; issue is usually phone autoplay/silent settings.</li>
-        </ul>
+      <section class="card">
+        <h2>Phrase Library</h2>
+        <p class="muted">Tap any row to hear Spanish then Chinese.</p>
+        <div id="list"></div>
       </section>
     </main>
 
