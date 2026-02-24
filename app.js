@@ -8,6 +8,7 @@ const el = {
   convButtons: document.getElementById('convButtons'),
   stopConv: document.getElementById('stopConv'),
   speed: document.getElementById('speed'),
+  refreshBtn: document.getElementById('refreshBtn'),
 };
 
 const audio = new Audio();
@@ -79,7 +80,6 @@ function renderList() {
       <div><div class="pill">#${p.id} English</div>${p.english}</div>
       <div><div class="pill">Spanish</div>${p.spanish}</div>
       <div>
-        <div class="pill">Chinese</div>${p.chinese}
         <div class="pill">Pinyin</div>${p.pinyin}
         <div class="pill">(${p.pronounce})</div>
       </div>
@@ -154,7 +154,6 @@ function show() {
   el.currentText.innerHTML = `
     <div><strong>English:</strong> ${current.english}</div>
     <div><strong>Spanish:</strong> ${current.spanish}</div>
-    <div><strong>Chinese:</strong> ${current.chinese}</div>
     <div><strong>Pinyin:</strong> ${current.pinyin}</div>
     <div><strong>English-sound hint:</strong> (${current.pronounce})</div>
   `;
@@ -168,6 +167,11 @@ el.stopConv.addEventListener('click', () => {
   stopConversation = true;
   audio.pause();
   setStatus('Conversation stopped.');
+});
+el.refreshBtn.addEventListener('click', () => {
+  const u = new URL(window.location.href);
+  u.searchParams.set('v', Date.now().toString());
+  window.location.href = u.toString();
 });
 
 applySpeed();
