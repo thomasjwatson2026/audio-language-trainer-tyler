@@ -15,14 +15,12 @@
       .stage{position:relative;min-height:360px;background:linear-gradient(180deg,#101826,#111c2d);border-radius:14px;padding:14px;overflow:hidden}
       .people{display:flex;justify-content:space-between;margin-top:8px}
       .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:8px}
-      .avatar{position:relative;width:110px;height:110px;border-radius:999px;display:grid;place-items:center;font-size:54px;background:#26324a;transition:transform .15s ease, box-shadow .15s ease}
-      .avatar::after{content:'';position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:18px;height:6px;border-radius:999px;background:#0b1220;opacity:.8}
+      .avatar{--mw:16px;--mh:5px;position:relative;width:110px;height:110px;border-radius:999px;display:grid;place-items:center;font-size:54px;background:#26324a;transition:transform .12s ease, box-shadow .12s ease}
+      .avatar::after{content:'';position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:var(--mw);height:var(--mh);border-radius:999px;background:#0b1220;opacity:.9;transition:width .06s linear,height .06s linear}
       .avatar.talking{transform:scale(1.05);box-shadow:0 0 0 4px rgba(125,176,255,.25)}
-      .avatar.talking::after{animation:mouth .18s infinite ease-in-out}
-      @keyframes mouth{0%{width:16px;height:5px}50%{width:24px;height:11px}100%{width:16px;height:5px}}
       .name{font-size:.92rem;color:var(--muted)}
-      .bubble-wrap{display:flex;flex-direction:column;gap:8px;margin-top:16px}
-      .bubble{max-width:78%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f}
+      .bubble-wrap{display:flex;flex-direction:column;gap:8px;margin-top:16px;height:180px;overflow-y:auto;padding-right:4px}
+      .bubble{max-width:78%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center}
       .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
       .muted{color:var(--muted)}
     </style>
@@ -64,18 +62,103 @@
       const audio=new Audio(); audio.preload='auto';
       let convos=[]; let stop=false;
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
-      const id2=(n)=>String(n).padStart(2,'0');
-      function addBubble(speaker,text,label){
+
+      let audioCtx=null, analyser=null, srcNode=null, rafId=null;
+      const freqData = new Uint8Array(128);
+      const zhMap = new Map();
+
+      const extraZh = {
+        '不客气': { pinyin:'Bú kèqi.', pronounce:'boo kuh-chee' },
+        '我想喝茶': { pinyin:'Wǒ xiǎng hē chá.', pronounce:'waw shyang huh cha' },
+        '干杯': { pinyin:'Gānbēi!', pronounce:'gahn-bay' },
+        '很好': { pinyin:'Hěn hǎo!', pronounce:'hun how' },
+        '我们改天一起去吧': { pinyin:'Wǒmen gǎitiān yìqǐ qù ba.', pronounce:'waw-men guy-tyen ee-chee chyoo ba' },
+        '你好你想要什么': { pinyin:'Nǐhǎo, nǐ xiǎng yào shénme?', pronounce:'nee how, nee shyang yow shen-muh' },
+        '你有水吗有': { pinyin:'Nǐ yǒu shuǐ ma? Yǒu.', pronounce:'nee yoh shway ma? yoh' },
+        '太好了': { pinyin:'Tài hǎo le.', pronounce:'tie how luh' },
+        '是的我喜欢住在那里': { pinyin:'Shì de, wǒ xǐhuan zhù zài nàlǐ.', pronounce:'shir duh, waw shee-hwan joo dzeye nah-lee' },
+        '很好我买了': { pinyin:'Hěn hǎo, wǒ mǎi le.', pronounce:'hun how, waw my luh' },
+        '我也想吃': { pinyin:'Wǒ yě xiǎng chī.', pronounce:'waw yeh shyang chir' }
+      };
+
+      function normZh(s){ return (s||'').replace(/[\s\p{P}\p{S}]/gu,''); }
+
+      function setMouthLevel(speaker, level){
+        const target = speaker==='A' ? el.a : el.b;
+        const other = speaker==='A' ? el.b : el.a;
+        const w = 14 + Math.round(level * 24);
+        const h = 4 + Math.round(level * 14);
+        target.style.setProperty('--mw', `${w}px`);
+        target.style.setProperty('--mh', `${h}px`);
+        other.style.setProperty('--mw', `16px`);
+        other.style.setProperty('--mh', `5px`);
+      }
+
+      function resetMouths(){
+        for(const a of [el.a, el.b]){ a.style.setProperty('--mw','16px'); a.style.setProperty('--mh','5px'); }
+      }
+
+      function ensureAudioGraph(){
+        if(audioCtx) return;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if(!AC) return;
+        audioCtx = new AC();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 256;
+        srcNode = audioCtx.createMediaElementSource(audio);
+        srcNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+      }
+
+      function startLipSync(speaker){
+        if(!analyser) return;
+        cancelAnimationFrame(rafId);
+        const loop = () => {
+          analyser.getByteFrequencyData(freqData);
+          let sum=0;
+          for(let i=2;i<38;i++) sum += freqData[i];
+          const level = Math.min(1, (sum / 36) / 140);
+          setMouthLevel(speaker, level);
+          rafId = requestAnimationFrame(loop);
+        };
+        loop();
+      }
+
+      function stopLipSync(){ cancelAnimationFrame(rafId); resetMouths(); }
+
+      function talk(s){el.a.classList.toggle('talking',s==='A'); el.b.classList.toggle('talking',s==='B'); if(!s){el.a.classList.remove('talking');el.b.classList.remove('talking');} }
+
+      function zhRender(zhChars){
+        const key = normZh(zhChars);
+        const item = zhMap.get(key) || extraZh[key];
+        if(!item) return `<div>pinyin unavailable</div><div class='muted'>(add this line to map)</div>`;
+        return `<div>${item.pinyin}</div><div class='muted'>(${item.pronounce})</div>`;
+      }
+
+      function addBubble(speaker, html, label){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
-        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${text}</div>`;
-        el.bubbles.appendChild(d); el.bubbles.scrollTop=el.bubbles.scrollHeight;
+        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div>`;
+        el.bubbles.appendChild(d);
+        el.bubbles.scrollTop = el.bubbles.scrollHeight;
       }
-      async function playFile(path){
-        try{audio.pause(); audio.src=path; audio.currentTime=0; audio.playbackRate=Number(el.speed.value||1); await audio.play();
-          return new Promise(res=>{audio.onended=()=>res(true); audio.onerror=()=>res(false)});
-        }catch{return false}
+
+      async function playFile(path, speaker){
+        try{
+          audio.pause();
+          audio.src=path;
+          audio.currentTime=0;
+          audio.playbackRate=Number(el.speed.value||1);
+          ensureAudioGraph();
+          if(audioCtx?.state === 'suspended') await audioCtx.resume();
+          startLipSync(speaker);
+          await audio.play();
+          return new Promise(res=>{
+            audio.onended=()=>{ stopLipSync(); res(true); };
+            audio.onerror=()=>{ stopLipSync(); res(false); };
+          });
+        }catch{ stopLipSync(); return false; }
       }
-      function talk(s){el.a.classList.toggle('talking',s==='A'); el.b.classList.toggle('talking',s==='B');}
+
       async function playScene(lang){
         const c=convos.find(x=>String(x.id)===el.conv.value); if(!c) return;
         stop=false; el.bubbles.innerHTML='';
@@ -84,23 +167,27 @@
           const t=c.turns[i], n=i+1, base=`conv_audio/c${c.id}_t${n}`;
           talk(t.speaker);
           if(lang==='es'){
-            addBubble(t.speaker,t.es,'ES');
-            if(!await playFile(base+'_es.mp3')) break;
+            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES');
+            if(!await playFile(base+'_es.mp3', t.speaker)) break;
           } else {
-            addBubble(t.speaker,t.zh,'ZH');
-            if(!await playFile(base+'_zh.mp3')) break;
+            addBubble(t.speaker, zhRender(t.zh), 'ZH');
+            if(!await playFile(base+'_zh.mp3', t.speaker)) break;
           }
           await sleep(220);
         }
-        talk('');
+        talk(''); stopLipSync();
       }
+
       async function init(){
         convos=await (await fetch('conversations.json',{cache:'no-store'})).json();
+        const toolkit=await (await fetch('toolkit38.json',{cache:'no-store'})).json();
+        for(const t of toolkit){ zhMap.set(normZh(t.chinese), { pinyin:t.pinyin, pronounce:t.pronounce }); }
         for(const c of convos){const o=document.createElement('option');o.value=String(c.id);o.textContent=`${c.id}: ${c.title}`;el.conv.appendChild(o)}
       }
+
       el.playEs.addEventListener('click',()=>playScene('es'));
       el.playZh.addEventListener('click',()=>playScene('zh'));
-      el.stop.addEventListener('click',()=>{stop=true;audio.pause();talk('')});
+      el.stop.addEventListener('click',()=>{stop=true;audio.pause();talk('');stopLipSync();});
       init();
     </script>
   </body>
