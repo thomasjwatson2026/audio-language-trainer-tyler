@@ -305,11 +305,6 @@
       el.playEs.addEventListener('click',()=>playScene('es'));
       el.playZh.addEventListener('click',()=>playScene('zh'));
       el.stop.addEventListener('click',()=>{stop=true;audio.pause();talk('');stopLipSync();});
-        el.toggleHeader.textContent = isFocus ? '⤡' : '⤢';
-        el.toggleHeader.setAttribute('aria-label', isFocus ? 'Exit focus mode' : 'Enter focus mode');
-        el.toggleHeader.setAttribute('title', isFocus ? 'Exit focus mode' : 'Enter focus mode');
-      });
-
 
       el.refresh.addEventListener('click', async ()=>{
         try {
