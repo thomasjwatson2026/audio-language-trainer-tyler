@@ -12,8 +12,8 @@
       .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
       button,select{padding:10px;border-radius:10px;border:1px solid #2b3650;background:#121927;color:var(--text)}
       button{cursor:pointer}.primary{background:var(--accent);border:none;color:#071224;font-weight:800}
-      .stage{position:relative;height:50vh;min-height:50vh;background:linear-gradient(180deg,#101826,#111c2d);border-radius:14px;padding:8px;overflow:hidden;display:flex;flex-direction:column}
-      .people{display:flex;justify-content:space-between;margin-top:2px}
+      .stage{position:relative;height:62vh;min-height:62vh;background:linear-gradient(180deg,#101826,#111c2d);border-radius:14px;padding:8px;overflow:hidden;display:flex;flex-direction:column}
+      .people{display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid #2a3448}
       .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:4px}
       .avatar{position:relative;width:92px;height:92px;border-radius:999px;display:block;background:#f0c7a1;border:2px solid #2b3650;transition:transform .12s ease, box-shadow .12s ease}
       .face-b{background:#d9a273}
@@ -22,8 +22,8 @@
       .mouth{position:absolute;left:50%;top:62px;transform:translate(-50%,-50%);width:18px;height:6px;border-radius:999px;background:#6b1f2a;transform-origin:center center;transition:transform .05s linear,width .05s linear,height .05s linear,border-radius .05s linear}
       .avatar.talking{transform:scale(1.03);box-shadow:0 0 0 3px rgba(125,176,255,.22)}
       .name{font-size:.82rem;color:var(--muted)}
-      .bubble-wrap{display:flex;flex-direction:column;gap:8px;margin-top:8px;flex:1;min-height:0;overflow-y:auto;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
-      .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(10px) scale(.99);animation:bIn .22s ease forwards}
+      .bubble-wrap{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;margin-top:4px;flex:1;min-height:0;overflow:hidden;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a}
+      .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
       .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
       .muted{color:var(--muted)}
       @keyframes bIn{to{opacity:1;transform:translateY(0) scale(1)}}
@@ -53,6 +53,7 @@
       </section>
 
       <section class="card stage">
+        <div id="bubbles" class="bubble-wrap"></div>
         <div class="people">
           <div class="person">
             <div id="a" class="avatar face-a">
@@ -69,7 +70,6 @@
             <div class="name">Speaker B</div>
           </div>
         </div>
-        <div id="bubbles" class="bubble-wrap"></div>
       </section>
     </main>
 
@@ -211,8 +211,13 @@
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
         d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div>`;
         el.bubbles.appendChild(d);
-        const targetTop = Math.max(0, d.offsetTop - (el.bubbles.clientHeight - d.clientHeight - 8));
-        el.bubbles.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+        // keep latest lines visible above heads; older lines get pushed upward
+        const maxVisible = 8;
+        while(el.bubbles.children.length > maxVisible){
+          const first = el.bubbles.firstElementChild;
+          if(first) first.remove();
+        }
       }
 
       async function playFile(path, speaker, speakText){
