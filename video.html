@@ -15,10 +15,12 @@
       .stage{position:relative;height:50vh;min-height:50vh;background:linear-gradient(180deg,#101826,#111c2d);border-radius:14px;padding:8px;overflow:hidden;display:flex;flex-direction:column}
       .people{display:flex;justify-content:space-between;margin-top:2px}
       .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:4px}
-      .avatar{position:relative;width:84px;height:84px;border-radius:999px;display:grid;place-items:center;font-size:42px;background:#26324a;transition:transform .12s ease, box-shadow .12s ease}
-      .mouth{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);width:16px;height:8px;border-radius:999px;background:#0b1220;overflow:hidden;transform-origin:center center;transition:transform .06s linear,width .06s linear,height .06s linear,border-radius .06s linear}
-      .mouth::before{content:'';position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:10px;height:4px;border-radius:10px;background:#cf5d73;opacity:.8;transition:transform .06s linear,width .06s linear,height .06s linear}
-      .avatar.talking{transform:scale(1.05);box-shadow:0 0 0 4px rgba(125,176,255,.25)}
+      .avatar{position:relative;width:92px;height:92px;border-radius:999px;display:block;background:#f0c7a1;border:2px solid #2b3650;transition:transform .12s ease, box-shadow .12s ease}
+      .face-b{background:#d9a273}
+      .eye{position:absolute;top:34px;width:8px;height:8px;border-radius:999px;background:#1a1a1a}
+      .eye-l{left:27px}.eye-r{right:27px}
+      .mouth{position:absolute;left:50%;top:62px;transform:translate(-50%,-50%);width:18px;height:6px;border-radius:999px;background:#6b1f2a;transform-origin:center center;transition:transform .05s linear,width .05s linear,height .05s linear,border-radius .05s linear}
+      .avatar.talking{transform:scale(1.03);box-shadow:0 0 0 3px rgba(125,176,255,.22)}
       .name{font-size:.82rem;color:var(--muted)}
       .bubble-wrap{display:flex;flex-direction:column;gap:8px;margin-top:8px;flex:1;min-height:0;overflow-y:auto;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(10px) scale(.99);animation:bIn .22s ease forwards}
@@ -52,8 +54,20 @@
 
       <section class="card stage">
         <div class="people">
-          <div class="person"><div id="a" class="avatar">🧑🏻<span class="mouth" id="mouthA"></span></div><div class="name">Speaker A</div></div>
-          <div class="person"><div id="b" class="avatar">🧑🏽<span class="mouth" id="mouthB"></span></div><div class="name">Speaker B</div></div>
+          <div class="person">
+            <div id="a" class="avatar face-a">
+              <span class="eye eye-l"></span><span class="eye eye-r"></span>
+              <span class="mouth" id="mouthA"></span>
+            </div>
+            <div class="name">Speaker A</div>
+          </div>
+          <div class="person">
+            <div id="b" class="avatar face-b">
+              <span class="eye eye-l"></span><span class="eye eye-r"></span>
+              <span class="mouth" id="mouthB"></span>
+            </div>
+            <div class="name">Speaker B</div>
+          </div>
         </div>
         <div id="bubbles" class="bubble-wrap"></div>
       </section>
@@ -89,23 +103,23 @@
         const target = speaker==='A' ? el.mouthA : el.mouthB;
         const other = speaker==='A' ? el.mouthB : el.mouthA;
 
-        const h = 7 + Math.round(level * 13);
-        const w = 15 + Math.round(level * 8);
+        const h = 6 + Math.round(level * 12);
+        const w = 16 + Math.round(level * 8);
         target.style.height = `${h}px`;
         target.style.width = `${w}px`;
-        target.style.borderRadius = `${Math.max(5, 11 - Math.round(level*5))}px`;
-        target.style.transform = `translate(-50%,-50%) scaleY(${1 + level*0.55})`;
+        target.style.borderRadius = `${Math.max(4, 10 - Math.round(level*4))}px`;
+        target.style.transform = `translate(-50%,-50%) scale(1, ${1 + level*0.35})`;
 
-        other.style.height = '8px';
-        other.style.width = '16px';
+        other.style.height = '6px';
+        other.style.width = '18px';
         other.style.borderRadius = '999px';
-        other.style.transform = 'translate(-50%,-50%) scaleY(1)';
+        other.style.transform = 'translate(-50%,-50%) scale(1,1)';
       }
 
       function resetMouths(){
         for(const m of [el.mouthA, el.mouthB]){
-          m.style.height='8px';
-          m.style.width='16px';
+          m.style.height='6px';
+          m.style.width='18px';
           m.style.borderRadius='999px';
           m.style.transform='translate(-50%,-50%) scaleY(1)';
         }
