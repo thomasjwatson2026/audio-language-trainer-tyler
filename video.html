@@ -12,17 +12,19 @@
       .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
       button,select{padding:10px;border-radius:10px;border:1px solid #2b3650;background:#121927;color:var(--text)}
       button{cursor:pointer}.primary{background:var(--accent);border:none;color:#071224;font-weight:800}
-      .stage{position:relative;min-height:360px;background:linear-gradient(180deg,#101826,#111c2d);border-radius:14px;padding:14px;overflow:hidden}
-      .people{display:flex;justify-content:space-between;margin-top:8px}
-      .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:8px}
-      .avatar{--mw:16px;--mh:5px;position:relative;width:110px;height:110px;border-radius:999px;display:grid;place-items:center;font-size:54px;background:#26324a;transition:transform .12s ease, box-shadow .12s ease}
-      .avatar::after{content:'';position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:var(--mw);height:var(--mh);border-radius:999px;background:#0b1220;opacity:.9;transition:width .06s linear,height .06s linear}
+      .stage{position:relative;min-height:74vh;background:linear-gradient(180deg,#101826,#111c2d);border-radius:14px;padding:10px;overflow:hidden;display:flex;flex-direction:column}
+      .people{display:flex;justify-content:space-between;margin-top:2px}
+      .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:4px}
+      .avatar{position:relative;width:84px;height:84px;border-radius:999px;display:grid;place-items:center;font-size:42px;background:#26324a;transition:transform .12s ease, box-shadow .12s ease}
+      .mouth{position:absolute;left:50%;top:57%;transform:translateX(-50%);width:16px;height:8px;border-radius:0 0 12px 12px;background:#0b1220;overflow:hidden}
+      .mouth::before{content:'';position:absolute;left:50%;top:56%;transform:translateX(-50%);width:10px;height:4px;border-radius:10px;background:#cf5d73;opacity:.8}
       .avatar.talking{transform:scale(1.05);box-shadow:0 0 0 4px rgba(125,176,255,.25)}
-      .name{font-size:.92rem;color:var(--muted)}
-      .bubble-wrap{display:flex;flex-direction:column;gap:8px;margin-top:16px;height:180px;overflow-y:auto;padding-right:4px}
-      .bubble{max-width:78%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center}
+      .name{font-size:.82rem;color:var(--muted)}
+      .bubble-wrap{display:flex;flex-direction:column;gap:8px;margin-top:8px;flex:1;min-height:0;overflow-y:auto;padding-right:4px;scroll-behavior:smooth}
+      .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(10px) scale(.99);animation:bIn .22s ease forwards}
       .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
       .muted{color:var(--muted)}
+      @keyframes bIn{to{opacity:1;transform:translateY(0) scale(1)}}
     </style>
   </head>
   <body>
@@ -50,15 +52,15 @@
 
       <section class="card stage">
         <div class="people">
-          <div class="person"><div id="a" class="avatar">🧑🏻</div><div class="name">Speaker A</div></div>
-          <div class="person"><div id="b" class="avatar">🧑🏽</div><div class="name">Speaker B</div></div>
+          <div class="person"><div id="a" class="avatar">🧑🏻<span class="mouth" id="mouthA"></span></div><div class="name">Speaker A</div></div>
+          <div class="person"><div id="b" class="avatar">🧑🏽<span class="mouth" id="mouthB"></span></div><div class="name">Speaker B</div></div>
         </div>
         <div id="bubbles" class="bubble-wrap"></div>
       </section>
     </main>
 
     <script>
-      const el={conv:document.getElementById('conv'),speed:document.getElementById('speed'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),a:document.getElementById('a'),b:document.getElementById('b'),bubbles:document.getElementById('bubbles')};
+      const el={conv:document.getElementById('conv'),speed:document.getElementById('speed'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),a:document.getElementById('a'),b:document.getElementById('b'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       let convos=[]; let stop=false;
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
@@ -84,18 +86,28 @@
       function normZh(s){ return (s||'').replace(/[\s\p{P}\p{S}]/gu,''); }
 
       function setMouthLevel(speaker, level){
-        const target = speaker==='A' ? el.a : el.b;
-        const other = speaker==='A' ? el.b : el.a;
-        const w = 14 + Math.round(level * 24);
-        const h = 4 + Math.round(level * 14);
-        target.style.setProperty('--mw', `${w}px`);
-        target.style.setProperty('--mh', `${h}px`);
-        other.style.setProperty('--mw', `16px`);
-        other.style.setProperty('--mh', `5px`);
+        const target = speaker==='A' ? el.mouthA : el.mouthB;
+        const other = speaker==='A' ? el.mouthB : el.mouthA;
+        const h = 5 + Math.round(level * 18);
+        const w = 14 + Math.round(level * 10);
+        target.style.height = `${h}px`;
+        target.style.width = `${w}px`;
+        target.style.borderRadius = `${Math.max(6, 14 - Math.round(level*6))}px`;
+        target.style.transform = `translateX(-50%) translateY(${Math.round(level*1.5)}px)`;
+
+        other.style.height = '8px';
+        other.style.width = '16px';
+        other.style.borderRadius = '0 0 12px 12px';
+        other.style.transform = 'translateX(-50%)';
       }
 
       function resetMouths(){
-        for(const a of [el.a, el.b]){ a.style.setProperty('--mw','16px'); a.style.setProperty('--mh','5px'); }
+        for(const m of [el.mouthA, el.mouthB]){
+          m.style.height='8px';
+          m.style.width='16px';
+          m.style.borderRadius='0 0 12px 12px';
+          m.style.transform='translateX(-50%)';
+        }
       }
 
       function ensureAudioGraph(){
