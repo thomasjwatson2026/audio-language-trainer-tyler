@@ -55,6 +55,7 @@
         <button id="playEs" class="primary">▶️ Play Scene (Spanish)</button>
         <button id="playZh" class="primary">▶️ Play Scene (Chinese)</button>
         <button id="stop">⏹️ Stop</button>
+        <button id="refresh">♻️ Hard Refresh</button>
       </section>
 
       <section class="card stage">
@@ -79,7 +80,7 @@
     </main>
 
     <script>
-      const el={conv:document.getElementById('conv'),speed:document.getElementById('speed'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),a:document.getElementById('a'),b:document.getElementById('b'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),bubbles:document.getElementById('bubbles')};
+      const el={conv:document.getElementById('conv'),speed:document.getElementById('speed'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),a:document.getElementById('a'),b:document.getElementById('b'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       let convos=[]; let stop=false;
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
@@ -275,6 +276,22 @@
       el.playEs.addEventListener('click',()=>playScene('es'));
       el.playZh.addEventListener('click',()=>playScene('zh'));
       el.stop.addEventListener('click',()=>{stop=true;audio.pause();talk('');stopLipSync();});
+
+      el.refresh.addEventListener('click', async ()=>{
+        try {
+          if (window.caches && caches.keys) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((k)=>caches.delete(k)));
+          }
+          if ('serviceWorker' in navigator) {
+            const regs = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(regs.map((r)=>r.unregister()));
+          }
+        } catch {}
+        const u = new URL(window.location.href);
+        u.searchParams.set('v', Date.now().toString());
+        window.location.replace(u.toString());
+      });
       init();
     </script>
   </body>
