@@ -31,6 +31,7 @@
       .subtitle{font-size:.86rem;margin:2px 0 0}
       label{font-size:.82rem}
       button,select{padding:7px 9px;font-size:.88rem}
+      #toggleHeader{min-width:40px;text-align:center}
       .app.focus .header{max-height:0!important;padding:0!important;margin:0!important;border:0!important;opacity:0}
       @keyframes bIn{to{opacity:1;transform:translateY(0) scale(1)}}
     </style>
@@ -57,7 +58,7 @@
         <button id="playZh" class="primary">▶️ Play Scene (Chinese)</button>
         <button id="stop">⏹️ Stop</button>
         <button id="refresh">♻️ Hard Refresh</button>
-        <button id="toggleHeader">🗕 Focus Mode</button>
+        <button id="toggleHeader" title="Toggle focus" aria-label="Toggle focus">⤢</button>
       </section>
 
       <section class="card stage">
@@ -281,7 +282,9 @@
 
       el.toggleHeader.addEventListener('click', ()=>{
         const isFocus = el.app.classList.toggle('focus');
-        el.toggleHeader.textContent = isFocus ? '🗖 Show Controls' : '🗕 Focus Mode';
+        el.toggleHeader.textContent = isFocus ? '⤡' : '⤢';
+        el.toggleHeader.setAttribute('aria-label', isFocus ? 'Exit focus mode' : 'Enter focus mode');
+        el.toggleHeader.setAttribute('title', isFocus ? 'Exit focus mode' : 'Enter focus mode');
       });
 
 
