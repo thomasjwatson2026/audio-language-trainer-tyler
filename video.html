@@ -99,20 +99,27 @@
 
       function normZh(s){ return (s||'').replace(/[\s\p{P}\p{S}]/gu,''); }
 
-      function setMouthLevel(speaker, level){
+      function applyMouthShape(speaker, shape){
         const target = speaker==='A' ? el.mouthA : el.mouthB;
         const other = speaker==='A' ? el.mouthB : el.mouthA;
+        const shapes = {
+          rest:   {w:18,h:6,r:999,sy:1},
+          closed: {w:16,h:4,r:999,sy:1},
+          wide:   {w:24,h:8,r:8,  sy:1.05},
+          open:   {w:18,h:14,r:6, sy:1.2},
+          round:  {w:13,h:13,r:999,sy:1.15},
+          teeth:  {w:21,h:6,r:5, sy:1.0},
+        };
+        const s = shapes[shape] || shapes.rest;
+        target.style.width = `${s.w}px`;
+        target.style.height = `${s.h}px`;
+        target.style.borderRadius = `${s.r}px`;
+        target.style.transform = `translate(-50%,-50%) scale(1,${s.sy})`;
 
-        const h = 6 + Math.round(level * 12);
-        const w = 16 + Math.round(level * 8);
-        target.style.height = `${h}px`;
-        target.style.width = `${w}px`;
-        target.style.borderRadius = `${Math.max(4, 10 - Math.round(level*4))}px`;
-        target.style.transform = `translate(-50%,-50%) scale(1, ${1 + level*0.35})`;
-
-        other.style.height = '6px';
-        other.style.width = '18px';
-        other.style.borderRadius = '999px';
+        const o = shapes.rest;
+        other.style.width = `${o.w}px`;
+        other.style.height = `${o.h}px`;
+        other.style.borderRadius = `${o.r}px`;
         other.style.transform = 'translate(-50%,-50%) scale(1,1)';
       }
 
@@ -121,8 +128,30 @@
           m.style.height='6px';
           m.style.width='18px';
           m.style.borderRadius='999px';
-          m.style.transform='translate(-50%,-50%) scaleY(1)';
+          m.style.transform='translate(-50%,-50%) scale(1,1)';
         }
+      }
+
+      function normalizeLatin(s){
+        return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+      }
+
+      function charToShape(ch){
+        if('mbp'.includes(ch)) return 'closed';
+        if('fvw'.includes(ch)) return 'teeth';
+        if('ou'.includes(ch)) return 'round';
+        if('a'.includes(ch)) return 'open';
+        if('eiiy'.includes(ch)) return 'wide';
+        if(ch===' ') return 'rest';
+        return 'open';
+      }
+
+      function buildVisemeTrack(text, durationSec){
+        const chars = normalizeLatin(text).replace(/[^a-z\s]/g,'').split('');
+        if(!chars.length) return [{t:0,shape:'rest'}];
+        const d = Math.max(0.6, durationSec || 1.6);
+        const step = d / chars.length;
+        return chars.map((ch,i)=>({t:i*step, shape:charToShape(ch)}));
       }
 
       function ensureAudioGraph(){
@@ -137,15 +166,27 @@
         analyser.connect(audioCtx.destination);
       }
 
-      function startLipSync(speaker){
+      function startLipSync(speaker, speakText){
         if(!analyser) return;
         cancelAnimationFrame(rafId);
+        const duration = Number.isFinite(audio.duration) && audio.duration>0 ? audio.duration / Math.max(0.5, Number(el.speed.value||1)) : 1.8;
+        const track = buildVisemeTrack(speakText, duration);
+        const start = performance.now();
+
         const loop = () => {
+          const elapsed = (performance.now()-start)/1000;
+          let idx = 0;
+          while(idx < track.length-1 && track[idx+1].t <= elapsed) idx++;
+          let shape = track[idx].shape;
+
+          // blend with live energy for subtle realism
           analyser.getByteFrequencyData(freqData);
-          let sum=0;
-          for(let i=2;i<38;i++) sum += freqData[i];
-          const level = Math.min(1, (sum / 36) / 140);
-          setMouthLevel(speaker, level);
+          let sum=0; for(let i=2;i<38;i++) sum += freqData[i];
+          const energy = Math.min(1, (sum / 36) / 145);
+          if(energy < 0.12) shape = 'closed';
+          else if(energy > 0.78 && (shape==='wide' || shape==='open')) shape = 'open';
+
+          applyMouthShape(speaker, shape);
           rafId = requestAnimationFrame(loop);
         };
         loop();
@@ -155,9 +196,13 @@
 
       function talk(s){el.a.classList.toggle('talking',s==='A'); el.b.classList.toggle('talking',s==='B'); if(!s){el.a.classList.remove('talking');el.b.classList.remove('talking');} }
 
-      function zhRender(zhChars){
+      function zhItem(zhChars){
         const key = normZh(zhChars);
-        const item = zhMap.get(key) || extraZh[key];
+        return zhMap.get(key) || extraZh[key] || null;
+      }
+
+      function zhRender(zhChars){
+        const item = zhItem(zhChars);
         if(!item) return `<div>pinyin unavailable</div><div class='muted'>(add this line to map)</div>`;
         return `<div>${item.pinyin}</div><div class='muted'>(${item.pronounce})</div>`;
       }
@@ -170,7 +215,7 @@
         el.bubbles.scrollTo({ top: targetTop, behavior: 'smooth' });
       }
 
-      async function playFile(path, speaker){
+      async function playFile(path, speaker, speakText){
         try{
           audio.pause();
           audio.src=path;
@@ -178,7 +223,16 @@
           audio.playbackRate=Number(el.speed.value||1);
           ensureAudioGraph();
           if(audioCtx?.state === 'suspended') await audioCtx.resume();
-          startLipSync(speaker);
+
+          // wait metadata so viseme track gets better timing
+          await new Promise((resolve)=>{
+            const done = ()=>resolve();
+            if(Number.isFinite(audio.duration) && audio.duration>0) return resolve();
+            audio.addEventListener('loadedmetadata', done, { once:true });
+            setTimeout(resolve, 250);
+          });
+
+          startLipSync(speaker, speakText || 'a');
           await audio.play();
           return new Promise(res=>{
             audio.onended=()=>{ stopLipSync(); res(true); };
@@ -196,10 +250,11 @@
           talk(t.speaker);
           if(lang==='es'){
             addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES');
-            if(!await playFile(base+'_es.mp3', t.speaker)) break;
+            if(!await playFile(base+'_es.mp3', t.speaker, t.es)) break;
           } else {
+            const z = zhItem(t.zh);
             addBubble(t.speaker, zhRender(t.zh), 'ZH');
-            if(!await playFile(base+'_zh.mp3', t.speaker)) break;
+            if(!await playFile(base+'_zh.mp3', t.speaker, z?.pinyin || 'a')) break;
           }
           await sleep(220);
         }
