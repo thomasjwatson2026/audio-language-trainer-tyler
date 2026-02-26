@@ -31,7 +31,7 @@
 
             .badge{position:absolute;left:6px;bottom:6px;font-size:.55rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.42);border:1px solid rgba(255,255,255,.14)}
                                                       
-      .bubble-wrap{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;margin-top:4px;flex:1;min-height:0;overflow-y:auto;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+      .bubble-wrap{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;margin-top:4px;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
       .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
       .bubble:hover{filter:brightness(1.06)}
@@ -45,7 +45,7 @@
   </head>
   <body>
     <header class="topbar"><button id="menuBtn" class="menu-btn">☰</button><h1>Video Conversation Mode</h1></header>
-    <nav id="drawer" class="drawer"><a href="index.html">Main App</a><a href="video.html">Video Conversations</a><a href="grammar-chinese.html">Chinese Grammar</a><a href="grammar-spanish.html">Spanish Grammar</a></nav>
+    <nav id="drawer" class="drawer"><a href="index.html">Main App</a><a href="video.html">Video Conversations</a><a href="grammar-chinese.html">Chinese Grammar</a><a href="grammar-spanish.html">Spanish Grammar</a><a href="vocab.html">Vocabulary</a></nav>
     <main class="app">
       <p class="muted subtitle">Spanish first, then Chinese. (20 conversations)</p>
 
@@ -135,6 +135,7 @@
       let audioCtx=null, analyser=null, srcNode=null, rafId=null;
       const freqData = new Uint8Array(128);
       const zhMap = new Map();
+      let autoFollow = true;
 
       const extraZh = {
         '不客气': { pinyin:'Bú kèqi.', pronounce:'boo kuh-chee' },
@@ -384,7 +385,9 @@
           });
         }
         el.bubbles.appendChild(d);
-        el.bubbles.scrollTo({ top: el.bubbles.scrollHeight, behavior: 'smooth' });
+        if(autoFollow){
+          el.bubbles.scrollTo({ top: el.bubbles.scrollHeight, behavior: 'smooth' });
+        }
       }
 
       
@@ -608,6 +611,10 @@
       });
       el.speedEs.addEventListener('change', saveSpeedPrefs);
       el.speedZh.addEventListener('change', saveSpeedPrefs);
+      el.bubbles.addEventListener('scroll', ()=>{
+        const nearBottom = el.bubbles.scrollHeight - (el.bubbles.scrollTop + el.bubbles.clientHeight) < 24;
+        autoFollow = nearBottom;
+      });
       el.loopMode.addEventListener('click', ()=>{
         playerPrefs.loopMode = (playerPrefs.loopMode + 1) % 3;
         savePlayerPrefs();

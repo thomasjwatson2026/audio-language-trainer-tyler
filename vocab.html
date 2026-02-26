@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vocabulary Bank</title>
+<link rel="stylesheet" href="nav.css"/>
+<style>
+body{background:#0d1117;color:#edf2ff;font-family:Inter,system-ui;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:14px}
+.card{background:#1b2330;padding:12px;border-radius:12px;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{border-bottom:1px solid #2a3448;padding:8px;text-align:left;vertical-align:top}
+th{color:#9db0ce}
+.muted{color:#9db0ce}
+</style></head><body>
+<header class="topbar"><button id="menuBtn" class="menu-btn">☰</button><h1>Vocabulary Bank</h1></header>
+<nav id="drawer" class="drawer"><a href="index.html">Main App</a><a href="video.html">Video Conversations</a><a href="grammar-chinese.html">Chinese Grammar</a><a href="grammar-spanish.html">Spanish Grammar</a><a href="vocab.html">Vocabulary</a></nav>
+<main class="wrap">
+  <section class="card">
+    <h2>Spanish → English</h2>
+    <table id="esTable"><thead><tr><th>#</th><th>Spanish</th><th>English Meaning</th></tr></thead><tbody></tbody></table>
+  </section>
+  <section class="card">
+    <h2>Chinese (Pinyin) → English</h2>
+    <p class="muted">No Chinese characters shown.</p>
+    <table id="zhTable"><thead><tr><th>#</th><th>Pinyin</th><th>(Pronunciation)</th><th>English Meaning</th></tr></thead><tbody></tbody></table>
+  </section>
+</main>
+<script>
+(async function(){
+  const zh = await (await fetch('toolkit38.json',{cache:'no-store'})).json();
+  const es = await (await fetch('spanish38.json',{cache:'no-store'})).json();
+  const esBody=document.querySelector('#esTable tbody');
+  const zhBody=document.querySelector('#zhTable tbody');
+  const esMap=new Map(es.map(x=>[x.id,x.spanish]));
+  for(const z of zh){
+    const tr1=document.createElement('tr');
+    tr1.innerHTML=`<td>${z.id}</td><td>${esMap.get(z.id)||''}</td><td>${z.english}</td>`;
+    esBody.appendChild(tr1);
+
+    const tr2=document.createElement('tr');
+    tr2.innerHTML=`<td>${z.id}</td><td>${z.pinyin||''}</td><td>${z.pronounce?`(${z.pronounce})`:''}</td><td>${z.english}</td>`;
+    zhBody.appendChild(tr2);
+  }
+})();
+</script>
+<script src="nav.js"></script>
+</body></html>
