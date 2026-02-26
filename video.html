@@ -42,6 +42,7 @@
       .bubble-wrap{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;margin-top:4px;flex:1;min-height:0;overflow-y:auto;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
       .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
+      .bubble:hover{filter:brightness(1.06)}
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
       .subtitle{font-size:.86rem;margin:2px 0 0}
@@ -279,9 +280,20 @@
         return `<div>${item.pinyin}</div><div class='muted'>(${item.pronounce})</div>`;
       }
 
-      function addBubble(speaker, html, label){
+      function addBubble(speaker, html, label, replay){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
         d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div>`;
+        if(replay){
+          d.style.cursor = 'pointer';
+          d.title = 'Tap to replay this line';
+          d.addEventListener('click', async () => {
+            stop = true; // stop current loop if running
+            audio.pause();
+            talk(speaker);
+            await playFile(replay.path, speaker, replay.text, replay.lang);
+            talk('');
+          });
+        }
         el.bubbles.appendChild(d);
         el.bubbles.scrollTo({ top: el.bubbles.scrollHeight, behavior: 'smooth' });
       }
@@ -346,11 +358,11 @@
           const t=c.turns[i], n=i+1, base=`conv_audio/c${c.id}_t${n}`;
           talk(t.speaker);
           if(lang==='es'){
-            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES');
+            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' });
             if(!await playFile(base+'_es.mp3', t.speaker, t.es, 'es')) break;
           } else {
             const z = zhItem(t.zh);
-            addBubble(t.speaker, zhRender(t.zh), 'ZH');
+            addBubble(t.speaker, zhRender(t.zh), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' });
             if(!await playFile(base+'_zh.mp3', t.speaker, z?.pinyin || 'a', 'zh')) break;
           }
           await sleep(220);
