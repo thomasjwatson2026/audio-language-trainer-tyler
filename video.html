@@ -468,6 +468,18 @@
 
           d.classList.add('show-tip');
           setTimeout(()=>d.classList.remove('show-tip'), 1800);
+
+          if(replay){
+            (async ()=>{
+              if(playback.active && !playback.paused){
+                playback.paused = true;
+                setPlayPauseLabel();
+              }
+              audio.pause();
+              stopLipSync();
+              await playPreview(replay.path, replay.lang, speaker);
+            })();
+          }
         });
 
         el.bubbleList.appendChild(d);
