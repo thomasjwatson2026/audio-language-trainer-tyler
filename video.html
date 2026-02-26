@@ -16,19 +16,20 @@
       .stage{position:relative;flex:1;min-height:0;background:linear-gradient(180deg,#101826,#111c2d);border-radius:12px;padding:6px;overflow:hidden;display:flex;flex-direction:column}
       .people{display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px;padding-top:6px;border-top:1px solid #2a3448;flex:0 0 auto}
       .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:4px}
-      .avatar{position:relative;width:96px;height:96px;border-radius:16px;display:block;background:#b48a63;border:2px solid #2b3650;transition:transform .12s ease, box-shadow .12s ease;overflow:hidden}
+      .avatar{position:relative;width:98px;height:98px;border-radius:18px;display:block;background:#6f7f9d;border:2px solid #2b3650;transition:transform .12s ease, box-shadow .12s ease;overflow:hidden}
       .face-b{background:#7a8cb2}
-      .eye{position:absolute;top:33px;width:12px;height:12px;border-radius:999px;background:#ffffff;box-shadow:0 0 0 1px #3a4357;overflow:hidden;transition:transform .08s linear,height .08s linear}
+      .portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.03)}
+      .eye{position:absolute;top:35px;width:11px;height:11px;border-radius:999px;background:#ffffff;box-shadow:0 0 0 1px rgba(40,52,72,.8);overflow:hidden;transition:transform .08s linear,height .08s linear}
       .eye::after{content:"";position:absolute;left:4px;top:4px;width:4px;height:4px;border-radius:999px;background:#0f1725;transition:transform .08s linear}
       .eye-l{left:23px}.eye-r{right:23px}
-      .mouth{position:absolute;left:48%;top:64px;transform:translate(-50%,-50%);width:18px;height:6px;border-radius:999px;background:#5a1d26;transform-origin:center center;transition:transform .05s linear,width .05s linear,height .05s linear,border-radius .05s linear}
+      .mouth{position:absolute;left:50%;top:66px;transform:translate(-50%,-50%);width:17px;height:6px;border-radius:999px;background:#5a1d26;transform-origin:center center;transition:transform .05s linear,width .05s linear,height .05s linear,border-radius .05s linear}
       .avatar::before{content:"";position:absolute;left:0;right:0;top:0;height:26px;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.08))}
       
       .avatar.talking{transform:scale(1.03);box-shadow:0 0 0 3px rgba(125,176,255,.22)}
       .name{font-size:.82rem;color:var(--muted)}
 
-      .helm{position:absolute;left:10px;right:10px;top:10px;height:16px;border-radius:10px;background:rgba(25,35,55,.75)}
-      .badge{position:absolute;left:6px;bottom:6px;font-size:.58rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.72);border:1px solid rgba(255,255,255,.15)}
+      .helm{position:absolute;left:10px;right:10px;top:8px;height:14px;border-radius:10px;background:rgba(25,35,55,.45)}
+      .badge{position:absolute;left:6px;bottom:6px;font-size:.56rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.58);border:1px solid rgba(255,255,255,.18)}
       .unit-peasant{background:linear-gradient(160deg,#b89269,#9a734f)}
       .unit-footman{background:linear-gradient(160deg,#7388b1,#4d6186)}
       .unit-rifleman{background:linear-gradient(160deg,#7f6b58,#5f4f41)}
@@ -78,6 +79,7 @@
         <div class="people">
           <div class="person">
             <div id="a" class="avatar face-a unit-peasant">
+              <img id="aPortrait" class="portrait" alt="Speaker A avatar" />
               <span class="helm"></span>
               <span class="badge" id="aBadge">🧱 Peasant</span>
               <span class="eye eye-l" id="aEyeL"></span><span class="eye eye-r" id="aEyeR"></span>
@@ -87,6 +89,7 @@
           </div>
           <div class="person">
             <div id="b" class="avatar face-b unit-peon">
+              <img id="bPortrait" class="portrait" alt="Speaker B avatar" />
               <span class="helm"></span>
               <span class="badge" id="bBadge">🐲 Peon</span>
               <span class="eye eye-l" id="bEyeL"></span><span class="eye eye-r" id="bEyeR"></span>
@@ -99,7 +102,7 @@
     </main>
 
     <script>
-      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
+      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aPortrait:document.getElementById('aPortrait'),bPortrait:document.getElementById('bPortrait'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
@@ -494,6 +497,17 @@
         {cls:'unit-sorceress', label:'🔮 Sorceress'}
       ];
 
+      
+      function unitToSeed(label){
+        return label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+      }
+
+      function avatarUrl(seed, variant=0){
+        // Free generated avatars from DiceBear (no key)
+        const style = variant % 2 === 0 ? 'adventurer-neutral' : 'bottts-neutral';
+        return `https://api.dicebear.com/9.x/${style}/svg?seed=${encodeURIComponent(seed)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+      }
+
       function applySpeakerUnits(){
         const pick = () => unitPool[Math.floor(Math.random()*unitPool.length)];
         const a = pick(); let b = pick();
@@ -503,6 +517,8 @@
         el.aBadge.textContent = a.label; el.bBadge.textContent = b.label;
         el.aName.textContent = `Speaker A · ${a.label.split(' ').slice(1).join(' ')}`;
         el.bName.textContent = `Speaker B · ${b.label.split(' ').slice(1).join(' ')}`;
+        el.aPortrait.src = avatarUrl(unitToSeed(a.label), Math.floor(Math.random()*10));
+        el.bPortrait.src = avatarUrl(unitToSeed(b.label), Math.floor(Math.random()*10));
       }
 
       async function init(){
