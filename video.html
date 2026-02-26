@@ -55,7 +55,7 @@
   <body>
     <main class="app">
       <h1 class="title">🎬 Video Conversation Mode</h1>
-      <p class="muted subtitle">Spanish first, then Chinese.</p>
+      <p class="muted subtitle">Spanish first, then Chinese. (20 conversations)</p>
 
       <section class="card row header">
         <label>Conversation
@@ -127,6 +127,39 @@
 
       const extraZh = {
         '不客气': { pinyin:'Bú kèqi.', pronounce:'boo kuh-chee' },
+        '谢谢你帮助我': { pinyin:'Xièxie nǐ bāngzhù wǒ.', pronounce:'shyeh-shyeh nee bahng-joo waw' },
+        '洗手间在哪里': { pinyin:'Xǐshǒujiān zài nǎlǐ?', pronounce:'shee-show-jyen dzeye nah-lee' },
+        '在那边': { pinyin:'Zài nàbiān.', pronounce:'dzeye nah-byen' },
+        '我迷路了': { pinyin:'Wǒ mílù le.', pronounce:'waw mee-loo luh' },
+        '我帮你看地图': { pinyin:'Wǒ bāng nǐ kàn dìtú.', pronounce:'waw bahng nee kahn dee-too' },
+        '非常感谢': { pinyin:'Fēicháng gǎnxiè.', pronounce:'fay-chahng gahn-shyeh' },
+        '我们去吃饭吧': { pinyin:'Wǒmen qù chīfàn ba.', pronounce:'waw-men chyoo chir-fahn ba' },
+        '给你水': { pinyin:'Gěi nǐ shuǐ.', pronounce:'gay nee shway' },
+        '多少钱': { pinyin:'Duōshǎo qián?', pronounce:'dwaw-shao chyen' },
+        '十美元': { pinyin:'Shí měiyuán.', pronounce:'shir may-ywen' },
+        '我也在学习': { pinyin:'Wǒ yě zài xuéxí.', pronounce:'waw yeh dzeye shweh-shee' },
+        '我想要学习更多': { pinyin:'Wǒ xiǎngyào xuéxí gèngduō.', pronounce:'waw shyang-yow shweh-shee geng-dwaw' },
+        '我们每天练习吧': { pinyin:'Wǒmen měitiān liànxí ba.', pronounce:'waw-men may-tyen lyen-shee ba' },
+        '我也想旅行': { pinyin:'Wǒ yě xiǎng lǚxíng.', pronounce:'waw yeh shyang lyoo-shing' },
+        '是的一次': { pinyin:'Shì de, yí cì.', pronounce:'shir duh, ee tsuh' },
+        '我还没去过': { pinyin:'Wǒ hái méi qù guò.', pronounce:'waw high may chyoo gwaw' },
+        '我们很快会去': { pinyin:'Wǒmen hěn kuài huì qù.', pronounce:'waw-men hun kwai hway chyoo' },
+        '这个很好': { pinyin:'Zhège hěn hǎo.', pronounce:'juh-guh hun how' },
+        '可以刷卡吗': { pinyin:'Kěyǐ shuākǎ ma?', pronounce:'kuh-yee shwah-kah ma' },
+        '可以我们收卡': { pinyin:'Kěyǐ, wǒmen shōu kǎ.', pronounce:'kuh-yee, waw-men show kah' },
+        '然后我们练习': { pinyin:'Ránhòu wǒmen liànxí.', pronounce:'rahn-hoh waw-men lyen-shee' },
+        '很高兴认识你': { pinyin:'Hěn gāoxìng rènshi nǐ.', pronounce:'hun gow-shing ren-shuh nee' },
+        '我也很高兴认识你': { pinyin:'Wǒ yě hěn gāoxìng rènshi nǐ.', pronounce:'waw yeh hun gow-shing ren-shuh nee' },
+        '我叫alex': { pinyin:'Wǒ jiào Alex.', pronounce:'waw jyao alex' },
+        '我来自美国': { pinyin:'Wǒ láizì Měiguó.', pronounce:'waw lye-dzuh may-gwaw' },
+        '我需要帮助': { pinyin:'Wǒ xūyào bāngzhù.', pronounce:'waw shoo-yow bahng-joo' },
+        '我来帮你': { pinyin:'Wǒ lái bāng nǐ.', pronounce:'waw lye bahng nee' },
+        '别急慢慢来': { pinyin:'Bié jí, màn man lái.', pronounce:'byeh jee, mahn man lye' },
+        '没事': { pinyin:'Méi shì.', pronounce:'may shir' },
+        '我们先说西班牙语': { pinyin:'Wǒmen xiān shuō Xībānyá yǔ.', pronounce:'waw-men shyen shwoh shee-ban-ya yew' },
+        '然后说中文': { pinyin:'Ránhòu shuō Zhōngwén.', pronounce:'rahn-hoh shwoh jong-wen' },
+        '现在快一点': { pinyin:'Xiànzài kuài yìdiǎn.', pronounce:'shyen-dzeye kwai ee-dyen' },
+        '很好我们继续': { pinyin:'Hěn hǎo, wǒmen jìxù.', pronounce:'hun how, waw-men jee-shyoo' },
         '我想喝茶': { pinyin:'Wǒ xiǎng hē chá.', pronounce:'waw shyang huh cha' },
         '干杯': { pinyin:'Gānbēi!', pronounce:'gahn-bay' },
         '很好': { pinyin:'Hěn hǎo!', pronounce:'hun how' },
@@ -139,7 +172,40 @@
         '我也想吃': { pinyin:'Wǒ yě xiǎng chī.', pronounce:'waw yeh shyang chir' },
         '这个两块钱': { pinyin:'Zhège liǎng kuài qián.', pronounce:'juh-guh lyang kwai chyen' },
         '这个三块钱': { pinyin:'Zhège sān kuài qián.', pronounce:'juh-guh sahn kwai chyen' },
-        '不客气': { pinyin:'Bú kèqi.', pronounce:'boo kuh-chee' }
+        '不客气': { pinyin:'Bú kèqi.', pronounce:'boo kuh-chee' },
+        '谢谢你帮助我': { pinyin:'Xièxie nǐ bāngzhù wǒ.', pronounce:'shyeh-shyeh nee bahng-joo waw' },
+        '洗手间在哪里': { pinyin:'Xǐshǒujiān zài nǎlǐ?', pronounce:'shee-show-jyen dzeye nah-lee' },
+        '在那边': { pinyin:'Zài nàbiān.', pronounce:'dzeye nah-byen' },
+        '我迷路了': { pinyin:'Wǒ mílù le.', pronounce:'waw mee-loo luh' },
+        '我帮你看地图': { pinyin:'Wǒ bāng nǐ kàn dìtú.', pronounce:'waw bahng nee kahn dee-too' },
+        '非常感谢': { pinyin:'Fēicháng gǎnxiè.', pronounce:'fay-chahng gahn-shyeh' },
+        '我们去吃饭吧': { pinyin:'Wǒmen qù chīfàn ba.', pronounce:'waw-men chyoo chir-fahn ba' },
+        '给你水': { pinyin:'Gěi nǐ shuǐ.', pronounce:'gay nee shway' },
+        '多少钱': { pinyin:'Duōshǎo qián?', pronounce:'dwaw-shao chyen' },
+        '十美元': { pinyin:'Shí měiyuán.', pronounce:'shir may-ywen' },
+        '我也在学习': { pinyin:'Wǒ yě zài xuéxí.', pronounce:'waw yeh dzeye shweh-shee' },
+        '我想要学习更多': { pinyin:'Wǒ xiǎngyào xuéxí gèngduō.', pronounce:'waw shyang-yow shweh-shee geng-dwaw' },
+        '我们每天练习吧': { pinyin:'Wǒmen měitiān liànxí ba.', pronounce:'waw-men may-tyen lyen-shee ba' },
+        '我也想旅行': { pinyin:'Wǒ yě xiǎng lǚxíng.', pronounce:'waw yeh shyang lyoo-shing' },
+        '是的一次': { pinyin:'Shì de, yí cì.', pronounce:'shir duh, ee tsuh' },
+        '我还没去过': { pinyin:'Wǒ hái méi qù guò.', pronounce:'waw high may chyoo gwaw' },
+        '我们很快会去': { pinyin:'Wǒmen hěn kuài huì qù.', pronounce:'waw-men hun kwai hway chyoo' },
+        '这个很好': { pinyin:'Zhège hěn hǎo.', pronounce:'juh-guh hun how' },
+        '可以刷卡吗': { pinyin:'Kěyǐ shuākǎ ma?', pronounce:'kuh-yee shwah-kah ma' },
+        '可以我们收卡': { pinyin:'Kěyǐ, wǒmen shōu kǎ.', pronounce:'kuh-yee, waw-men show kah' },
+        '然后我们练习': { pinyin:'Ránhòu wǒmen liànxí.', pronounce:'rahn-hoh waw-men lyen-shee' },
+        '很高兴认识你': { pinyin:'Hěn gāoxìng rènshi nǐ.', pronounce:'hun gow-shing ren-shuh nee' },
+        '我也很高兴认识你': { pinyin:'Wǒ yě hěn gāoxìng rènshi nǐ.', pronounce:'waw yeh hun gow-shing ren-shuh nee' },
+        '我叫alex': { pinyin:'Wǒ jiào Alex.', pronounce:'waw jyao alex' },
+        '我来自美国': { pinyin:'Wǒ láizì Měiguó.', pronounce:'waw lye-dzuh may-gwaw' },
+        '我需要帮助': { pinyin:'Wǒ xūyào bāngzhù.', pronounce:'waw shoo-yow bahng-joo' },
+        '我来帮你': { pinyin:'Wǒ lái bāng nǐ.', pronounce:'waw lye bahng nee' },
+        '别急慢慢来': { pinyin:'Bié jí, màn man lái.', pronounce:'byeh jee, mahn man lye' },
+        '没事': { pinyin:'Méi shì.', pronounce:'may shir' },
+        '我们先说西班牙语': { pinyin:'Wǒmen xiān shuō Xībānyá yǔ.', pronounce:'waw-men shyen shwoh shee-ban-ya yew' },
+        '然后说中文': { pinyin:'Ránhòu shuō Zhōngwén.', pronounce:'rahn-hoh shwoh jong-wen' },
+        '现在快一点': { pinyin:'Xiànzài kuài yìdiǎn.', pronounce:'shyen-dzeye kwai ee-dyen' },
+        '很好我们继续': { pinyin:'Hěn hǎo, wǒmen jìxù.', pronounce:'hun how, waw-men jee-shyoo' }
       };
 
       function normZh(s){ return (s||'').replace(/[\s\p{P}\p{S}]/gu,''); }
@@ -498,14 +564,22 @@
       ];
 
       
-      function unitToSeed(label){
-        return label.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+      function unitKeyFromLabel(label){
+        const n = label.toLowerCase();
+        if(n.includes('peasant')) return 'peasant';
+        if(n.includes('footman')) return 'footman';
+        if(n.includes('rifleman')) return 'rifleman';
+        if(n.includes('priest')) return 'priest';
+        if(n.includes('archer')) return 'archer';
+        if(n.includes('grunt')) return 'grunt';
+        if(n.includes('peon')) return 'peon';
+        if(n.includes('acolyte')) return 'acolyte';
+        if(n.includes('sorceress')) return 'sorceress';
+        return 'peasant';
       }
 
-      function avatarUrl(seed, variant=0){
-        // Free generated avatars from DiceBear (no key)
-        const style = variant % 2 === 0 ? 'adventurer-neutral' : 'bottts-neutral';
-        return `https://api.dicebear.com/9.x/${style}/svg?seed=${encodeURIComponent(seed)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+      function avatarUrl(unitKey){
+        return `assets/avatars/${unitKey}.svg`;
       }
 
       function applySpeakerUnits(){
@@ -517,8 +591,8 @@
         el.aBadge.textContent = a.label; el.bBadge.textContent = b.label;
         el.aName.textContent = `Speaker A · ${a.label.split(' ').slice(1).join(' ')}`;
         el.bName.textContent = `Speaker B · ${b.label.split(' ').slice(1).join(' ')}`;
-        el.aPortrait.src = avatarUrl(unitToSeed(a.label), Math.floor(Math.random()*10));
-        el.bPortrait.src = avatarUrl(unitToSeed(b.label), Math.floor(Math.random()*10));
+        el.aPortrait.src = avatarUrl(unitKeyFromLabel(a.label));
+        el.bPortrait.src = avatarUrl(unitKeyFromLabel(b.label));
       }
 
       async function init(){
