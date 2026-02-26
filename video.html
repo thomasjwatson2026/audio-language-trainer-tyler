@@ -41,7 +41,8 @@
       .bubble.b .bubble-tip{left:auto;right:8px}
       .bubble.show-tip .bubble-tip{opacity:1;transform:translateY(0)}
       .inline-words{margin-top:6px;line-height:1.6}
-      .word-chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 6px;border-radius:999px;border:1px solid #3b567f;background:#16253d;color:#d8e8ff;font-size:.75rem;cursor:pointer;position:relative}
+      .sent-word{display:inline-block;margin:0 2px 0 0;padding:1px 3px;border-radius:6px;cursor:pointer;position:relative}
+      .sent-word:hover{background:#1a2740}
       .word-chip-tip{position:absolute;left:0;bottom:calc(100% + 6px);background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:4px 6px;border-radius:7px;font-size:.72rem;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:7}
       .word-chip.show-word-tip .word-chip-tip{opacity:1;transform:translateY(0)}
       
@@ -404,13 +405,14 @@
         }catch{ talk(''); }
       }
 
-      function addBubble(speaker, html, label, replay, meaning, words=[], lang='es'){
+      function addBubble(speaker, displayText, label, replay, meaning, words=[], lang='es', subText=''){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
-        const chips = words.map(w=>`<span class="word-chip" data-w="${w}" data-lang="${lang}">${w}<span class="word-chip-tip">${w} = ${lookupWordMeaning(w,lang)}</span></span>`).join(' ');
-        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div><div class="inline-words">${chips}</div>`;
+        const chips = words.map(w=>`<span class="sent-word" data-w="${w}" data-lang="${lang}">${w}<span class="word-chip-tip">${w} = ${lookupWordMeaning(w,lang)}</span></span>`).join(' ');
+        const sub = subText ? `<div class="muted">${subText}</div>` : '';
+        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${chips || displayText}</div>${sub}<div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div>`;
 
         d.addEventListener('click', (ev)=>{
-          const chip = ev.target.closest('.word-chip');
+          const chip = ev.target.closest('.sent-word');
           if(chip){
             ev.stopPropagation();
             chip.classList.add('show-word-tip');
@@ -425,7 +427,7 @@
             (async ()=>{
               if(playback.active){
                 playback.paused = true;
-                playback.skipCurrent = true; // continue to next unseen bubble on resume
+                playback.skipCurrent = true;
                 setPlayPauseLabel();
               }
               audio.pause();
@@ -579,11 +581,11 @@
 
           let result = 'error';
           if(lang==='es'){
-            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t), tokenizeWords(t.es), 'es');
+            addBubble(t.speaker, t.es, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t), tokenizeWords(t.es), 'es');
             result = await playFile(base+'_es.mp3', t.speaker, t.es, 'es');
           } else {
             const z = zhItem(t.zh);
-            addBubble(t.speaker, zhRender(t.zh), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t), tokenizeWords(z?.pinyin || ''), 'zh');
+            addBubble(t.speaker, (z?.pinyin || ''), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t), tokenizeWords(z?.pinyin || ''), 'zh', z?.pronounce ? `(${z.pronounce})` : '');
             result = await playFile(base+'_zh.mp3', t.speaker, z?.pinyin || 'a', 'zh');
           }
 
