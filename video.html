@@ -121,6 +121,7 @@
       let convos=[];
       const playback = { active:false, paused:false, convId:null, lang:null, index:0, skipCurrent:false };
       const playerPrefs = { loopMode:0 }; // 0 off, 1 all, 2 one
+      const PREF_KEYS = { conv:'lm_conv_id', lastLang:'lm_last_lang' };
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
 
       function setPlayPauseLabel(){
@@ -414,6 +415,23 @@
         renderTransportButtons();
       }
 
+      
+      function saveConversationPref(){
+        try { localStorage.setItem(PREF_KEYS.conv, el.conv.value || '1'); } catch {}
+      }
+
+      function loadConversationPref(){
+        try { return localStorage.getItem(PREF_KEYS.conv); } catch { return null; }
+      }
+
+      function saveLastLang(lang){
+        try { localStorage.setItem(PREF_KEYS.lastLang, lang); } catch {}
+      }
+
+      function loadLastLang(){
+        try { return localStorage.getItem(PREF_KEYS.lastLang) || 'es'; } catch { return 'es'; }
+      }
+
       function nextConversationId(currentId){
         const ids = convos.map(c=>c.id);
         const idx = ids.indexOf(currentId);
@@ -497,6 +515,7 @@
         playback.skipCurrent = false;
         playback.convId = c.id;
         playback.lang = lang;
+        saveLastLang(lang);
         playback.index = 0;
         setPlayPauseLabel();
 
@@ -553,6 +572,7 @@
           }
           if(targetId != null){
             el.conv.value = String(targetId);
+            saveConversationPref();
             setTimeout(()=>playScene(finishedLang), 280);
           }
         }
@@ -595,11 +615,14 @@
         const toolkit=await (await fetch('toolkit38.json',{cache:'no-store'})).json();
         for(const t of toolkit){ zhMap.set(normZh(t.chinese), { pinyin:t.pinyin, pronounce:t.pronounce }); }
         for(const c of convos){const o=document.createElement('option');o.value=String(c.id);o.textContent=`${c.id}: ${c.title}`;el.conv.appendChild(o)}
+        const savedConv = loadConversationPref();
+        if(savedConv && convos.some(c=>String(c.id)===savedConv)) el.conv.value = savedConv;
         applySpeakerUnits();
       }
 
       el.playEs.addEventListener('click',()=>playScene('es'));
       el.playZh.addEventListener('click',()=>playScene('zh'));
+      el.conv.addEventListener('change', saveConversationPref);
       el.stop.addEventListener('click',()=>{
         if(!playback.active) return;
         playback.paused = !playback.paused;
