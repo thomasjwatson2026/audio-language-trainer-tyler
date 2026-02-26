@@ -16,7 +16,8 @@
       button{cursor:pointer}.primary{background:var(--accent);border:none;color:#071224;font-weight:800}
       .stage{position:relative;flex:1;min-height:0;background:linear-gradient(180deg,#101826,#111c2d);border-radius:12px;padding:6px;overflow:hidden;display:flex;flex-direction:column}
       .people{display:flex;justify-content:space-between;align-items:flex-end;margin-top:4px;padding-top:6px;padding-bottom:14px;border-top:1px solid #2a3448;flex:0 0 auto}
-      .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:4px;transform:translateY(-4px)}
+      .person{width:42%;display:flex;flex-direction:column;align-items:center;gap:4px;transform:translateY(-4px)}
+      .bottom-controls{width:16%;display:flex;justify-content:center;align-items:flex-end;padding-bottom:24px}
       .avatar{position:relative;width:96px;height:96px;border-radius:18px;display:block;background:#6f7f9d;border:2px solid #2b3650;transition:transform .12s ease, box-shadow .12s ease;overflow:hidden}
       .rig{position:absolute;inset:0;width:100%;height:100%}
       .face-b{background:#7a8cb2}
@@ -74,7 +75,6 @@
         </label>
         <button id="playEs" class="primary">▶️ Play Scene (Spanish)</button>
         <button id="playZh" class="primary">▶️ Play Scene (Chinese)</button>
-        <button id="stop">⏹️ Stop</button>
         <button id="loopMode" title="Loop mode">🔁 Loop: Off</button>
       </section>
 
@@ -101,6 +101,9 @@
             </div>
             <div class="name" id="aName">Speaker A · Peasant</div>
           </div>
+          <div class="bottom-controls">
+            <button id="bottomPlayPause" class="menu-btn">⏸ Pause</button>
+          </div>
           <div class="person">
             <div id="b" class="avatar">
               <svg class="rig" id="bRig" viewBox="0 0 128 128" aria-hidden="true">
@@ -126,7 +129,7 @@
     </main>
 
     <script>
-      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aBg1:document.getElementById('aBg1'),aBg2:document.getElementById('aBg2'),aFace:document.getElementById('aFace'),bBg1:document.getElementById('bBg1'),bBg2:document.getElementById('bBg2'),bFace:document.getElementById('bFace'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles'),bubbleList:document.getElementById('bubbleList')};
+      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),bottomPlayPause:document.getElementById('bottomPlayPause'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aBg1:document.getElementById('aBg1'),aBg2:document.getElementById('aBg2'),aFace:document.getElementById('aFace'),bBg1:document.getElementById('bBg1'),bBg2:document.getElementById('bBg2'),bFace:document.getElementById('bFace'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles'),bubbleList:document.getElementById('bubbleList')};
       const audio=new Audio(); audio.preload='auto';
       const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
@@ -137,12 +140,12 @@
 
       function setPlayPauseLabel(){
         if(!playback.active){
-          el.stop.textContent = '⏸ Pause';
-          el.stop.disabled = true;
+          el.bottomPlayPause.textContent = '▶️ Play';
+          el.bottomPlayPause.disabled = true;
           return;
         }
-        el.stop.disabled = false;
-        el.stop.textContent = playback.paused ? '▶️ Resume' : '⏸ Pause';
+        el.bottomPlayPause.disabled = false;
+        el.bottomPlayPause.textContent = playback.paused ? '▶️ Play' : '⏸ Pause';
       }
 
 
@@ -465,19 +468,6 @@
 
           d.classList.add('show-tip');
           setTimeout(()=>d.classList.remove('show-tip'), 1800);
-
-          if(replay){
-            (async ()=>{
-              if(playback.active){
-                playback.paused = true;
-                playback.skipCurrent = true;
-                setPlayPauseLabel();
-              }
-              audio.pause();
-              stopLipSync();
-              await playPreview(replay.path, replay.lang, speaker);
-            })();
-          }
         });
 
         el.bubbleList.appendChild(d);
@@ -721,7 +711,7 @@
       el.playEs.addEventListener('click',()=>playScene('es'));
       el.playZh.addEventListener('click',()=>playScene('zh'));
       el.conv.addEventListener('change', saveConversationPref);
-      el.stop.addEventListener('click',()=>{
+      el.bottomPlayPause.addEventListener('click',()=>{
         if(!playback.active) return;
         playback.paused = !playback.paused;
         if(playback.paused){
