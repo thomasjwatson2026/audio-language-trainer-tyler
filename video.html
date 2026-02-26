@@ -41,12 +41,11 @@
       .bubble.b .bubble-tip{left:auto;right:8px}
       .bubble.show-tip .bubble-tip{opacity:1;transform:translateY(0)}
       .inline-words{margin-top:6px;line-height:1.6}
-      .sent-word{display:inline-block;margin:0 2px 0 0;padding:1px 3px;border-radius:6px;cursor:pointer;position:relative}
-      .sent-word:hover{background:#1a2740}
+      .sent-word{display:inline; margin:0; padding:0; cursor:pointer; position:relative; border-bottom:1px dotted rgba(180,210,255,.45)}
+      .sent-word:hover{background:transparent; color:#dcecff}
       .word-chip-tip{position:absolute;left:0;bottom:calc(100% + 6px);background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:4px 6px;border-radius:7px;font-size:.72rem;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:7}
-      .word-chip.show-word-tip .word-chip-tip{opacity:1;transform:translateY(0)}
+      .sent-word.show-word-tip .word-chip-tip{opacity:1;transform:translateY(0)}
       
-      .bubble:hover{filter:brightness(1.06)}
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
       .subtitle{font-size:.86rem;margin:2px 0 0}
