@@ -31,9 +31,10 @@
 
             .badge{position:absolute;left:6px;bottom:6px;font-size:.55rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.42);border:1px solid rgba(255,255,255,.14)}
                                                       
-      .bubble-wrap{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;margin-top:4px;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+      .bubble-wrap{display:block;margin-top:4px;flex:1;min-height:0;max-height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
-      .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
+      .bubble + .bubble{margin-top:8px}
+      .bubble.a{margin-right:auto}.bubble.b{margin-left:auto;background:#21314a}
       .bubble:hover{filter:brightness(1.06)}
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
