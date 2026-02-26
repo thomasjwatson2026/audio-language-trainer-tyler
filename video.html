@@ -40,6 +40,10 @@
       .bubble-tip{position:absolute;bottom:calc(100% + 6px);left:8px;max-width:88%;background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:6px 8px;border-radius:8px;font-size:.78rem;line-height:1.25;box-shadow:0 6px 16px rgba(0,0,0,.35);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease;z-index:5}
       .bubble.b .bubble-tip{left:auto;right:8px}
       .bubble.show-tip .bubble-tip{opacity:1;transform:translateY(0)}
+      .word-panel{margin-top:6px;padding:6px;border-radius:8px;background:#101a2a;border:1px solid #2d466f;display:none}
+      .word-panel.open{display:block}
+      .word-chip{display:inline-block;margin:2px 4px 2px 0;padding:3px 7px;border-radius:999px;border:1px solid #3b567f;background:#16253d;color:#d8e8ff;font-size:.75rem;cursor:pointer}
+      .word-def{margin-top:6px;font-size:.78rem;color:#cfe0ff;min-height:16px}
       .bubble:hover{filter:brightness(1.06)}
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
@@ -143,6 +147,8 @@
       const freqData = new Uint8Array(128);
       const zhMap = new Map();
       const zhToEnglish = new Map();
+      const esWordMap = new Map();
+      const zhWordMap = new Map();
       let autoFollow = true;
 
       const extraZh = {
@@ -353,6 +359,22 @@
       }
 
 
+
+      function tokenizeWords(text){
+        return (text||'').toLowerCase().replace(/[¡!¿?.,;:()\[\]…]/g,' ').split(/\s+/).filter(Boolean);
+      }
+
+      function renderWordPanel(elPanel, words, lang){
+        if(!elPanel) return;
+        const chips = words.map(w=>`<span class="word-chip" data-w="${w}" data-lang="${lang}">${w}</span>`).join('');
+        elPanel.innerHTML = `<div>${chips}</div><div class="word-def">Tap a word for meaning</div>`;
+      }
+
+      function lookupWordMeaning(word, lang){
+        if(lang==='es') return esWordMap.get(word) || '(definition not mapped yet)';
+        return zhWordMap.get(word) || '(definition not mapped yet)';
+      }
+
       function turnEnglishMeaning(turn){
         const key = normZh(turn?.zh || '');
         return zhToEnglish.get(key) || 'English meaning not mapped yet';
@@ -381,25 +403,42 @@
         }catch{ talk(''); }
       }
 
-      function addBubble(speaker, html, label, replay, meaning){
+      function addBubble(speaker, html, label, replay, meaning, words=[], lang='es'){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
-        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div>`;
-        if(replay){
-          d.style.cursor = 'pointer';
-          d.title = 'Tap to replay this line';
-          d.addEventListener('click', async () => {
-            d.classList.add('show-tip');
-            setTimeout(()=>d.classList.remove('show-tip'), 1800);
-            if(playback.active){
-              playback.paused = true;
-              playback.skipCurrent = true; // continue to next unseen bubble on resume
-              setPlayPauseLabel();
-            }
-            audio.pause();
-            stopLipSync();
-            await playPreview(replay.path, replay.lang, speaker);
-          });
-        }
+        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div><div class="word-panel"></div>`;
+        const panel = d.querySelector('.word-panel');
+        renderWordPanel(panel, words, lang);
+
+        d.addEventListener('click', (ev)=>{
+          // If tapping a chip, only show that definition
+          const chip = ev.target.closest('.word-chip');
+          if(chip){
+            const w = chip.getAttribute('data-w');
+            const l = chip.getAttribute('data-lang');
+            const out = panel.querySelector('.word-def');
+            if(out) out.textContent = `${w} = ${lookupWordMeaning(w,l)}`;
+            panel.classList.add('open');
+            return;
+          }
+
+          d.classList.add('show-tip');
+          panel.classList.add('open');
+          setTimeout(()=>d.classList.remove('show-tip'), 1800);
+
+          if(replay){
+            (async ()=>{
+              if(playback.active){
+                playback.paused = true;
+                playback.skipCurrent = true; // continue to next unseen bubble on resume
+                setPlayPauseLabel();
+              }
+              audio.pause();
+              stopLipSync();
+              await playPreview(replay.path, replay.lang, speaker);
+            })();
+          }
+        });
+
         el.bubbleList.appendChild(d);
         if(autoFollow){
           el.bubbles.scrollTo({ top: el.bubbles.scrollHeight, behavior: 'smooth' });
@@ -544,11 +583,11 @@
 
           let result = 'error';
           if(lang==='es'){
-            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t));
+            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t), tokenizeWords(t.es), 'es');
             result = await playFile(base+'_es.mp3', t.speaker, t.es, 'es');
           } else {
             const z = zhItem(t.zh);
-            addBubble(t.speaker, zhRender(t.zh), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t));
+            addBubble(t.speaker, zhRender(t.zh), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t), tokenizeWords(z?.pinyin || ''), 'zh');
             result = await playFile(base+'_zh.mp3', t.speaker, z?.pinyin || 'a', 'zh');
           }
 
@@ -626,6 +665,10 @@
       async function init(){
         convos=await (await fetch('conversations.json',{cache:'no-store'})).json();
         const toolkit=await (await fetch('toolkit38.json',{cache:'no-store'})).json();
+        const esWords=await (await fetch('wordbank-spanish.json',{cache:'no-store'})).json();
+        const zhWords=await (await fetch('wordbank-chinese.json',{cache:'no-store'})).json();
+        for(const w of esWords){ esWordMap.set(String(w.word||'').toLowerCase(), w.meaning || ''); }
+        for(const w of zhWords){ zhWordMap.set(String(w.word||'').toLowerCase(), w.meaning || ''); }
         for(const t of toolkit){ zhMap.set(normZh(t.chinese), { pinyin:t.pinyin, pronounce:t.pronounce }); }
         for(const t of toolkit){ zhToEnglish.set(normZh(t.chinese), t.english || ''); }
         for(const c of convos){const o=document.createElement('option');o.value=String(c.id);o.textContent=`${c.id}: ${c.title}`;el.conv.appendChild(o)}
