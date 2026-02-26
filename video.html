@@ -43,7 +43,7 @@
       .inline-words{margin-top:6px;line-height:1.6}
       .sent-word{display:inline; margin:0; padding:0; cursor:pointer; position:relative; border-bottom:1px dotted rgba(180,210,255,.45)}
       .sent-word:hover{background:transparent; color:#dcecff}
-      .word-chip-tip{position:absolute;left:0;bottom:calc(100% + 6px);background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:4px 6px;border-radius:7px;font-size:.72rem;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:7}
+      .word-chip-tip{position:absolute;left:0;bottom:calc(100% + 6px);background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:4px 6px;border-radius:7px;font-size:.72rem;white-space:normal;line-height:1.25;max-width:min(240px,70vw);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:7}
       .sent-word.show-word-tip .word-chip-tip{opacity:1;transform:translateY(0)}
       .bubble-line{display:block;width:100%}
       .bubble-sub{display:block;margin-top:4px;color:#9db0ce}
@@ -441,8 +441,25 @@
           if(chip){
             ev.stopPropagation();
             document.querySelectorAll('.sent-word.show-word-tip').forEach(el=>el.classList.remove('show-word-tip'));
+            const tip = chip.querySelector('.word-chip-tip');
+            if(tip){
+              // reset any old offsets
+              tip.style.left = '0px';
+              tip.style.right = 'auto';
+              requestAnimationFrame(()=>{
+                const r = tip.getBoundingClientRect();
+                const pad = 8;
+                if(r.right > window.innerWidth - pad){
+                  const shift = Math.ceil(r.right - (window.innerWidth - pad));
+                  tip.style.left = `${-shift}px`;
+                }
+                if(r.left < pad){
+                  tip.style.left = `${pad - r.left}px`;
+                }
+              });
+            }
             chip.classList.add('show-word-tip');
-            setTimeout(()=>chip.classList.remove('show-word-tip'), 1800);
+            setTimeout(()=>chip.classList.remove('show-word-tip'), 2200);
             return;
           }
 
