@@ -36,6 +36,10 @@
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
       .bubble + .bubble{margin-top:8px}
       .bubble.a{margin-right:auto}.bubble.b{margin-left:auto;background:#21314a}
+      .bubble{position:relative}
+      .bubble-tip{position:absolute;bottom:calc(100% + 6px);left:8px;max-width:88%;background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:6px 8px;border-radius:8px;font-size:.78rem;line-height:1.25;box-shadow:0 6px 16px rgba(0,0,0,.35);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease;z-index:5}
+      .bubble.b .bubble-tip{left:auto;right:8px}
+      .bubble.show-tip .bubble-tip{opacity:1;transform:translateY(0)}
       .bubble:hover{filter:brightness(1.06)}
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
@@ -138,6 +142,7 @@
       let audioCtx=null, analyser=null, srcNode=null, rafId=null;
       const freqData = new Uint8Array(128);
       const zhMap = new Map();
+      const zhToEnglish = new Map();
       let autoFollow = true;
 
       const extraZh = {
@@ -347,6 +352,12 @@
         return zhMap.get(key) || extraZh[key] || null;
       }
 
+
+      function turnEnglishMeaning(turn){
+        const key = normZh(turn?.zh || '');
+        return zhToEnglish.get(key) || 'English meaning not mapped yet';
+      }
+
       function zhRender(zhChars){
         const item = zhItem(zhChars);
         if(!item) return `<div>pinyin unavailable</div><div class='muted'>(add this line to map)</div>`;
@@ -370,13 +381,15 @@
         }catch{ talk(''); }
       }
 
-      function addBubble(speaker, html, label, replay){
+      function addBubble(speaker, html, label, replay, meaning){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
-        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div>`;
+        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div>`;
         if(replay){
           d.style.cursor = 'pointer';
           d.title = 'Tap to replay this line';
           d.addEventListener('click', async () => {
+            d.classList.add('show-tip');
+            setTimeout(()=>d.classList.remove('show-tip'), 1800);
             if(playback.active){
               playback.paused = true;
               playback.skipCurrent = true; // continue to next unseen bubble on resume
@@ -531,11 +544,11 @@
 
           let result = 'error';
           if(lang==='es'){
-            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' });
+            addBubble(t.speaker, `${t.es}<div class='muted'>&nbsp;</div>`, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t));
             result = await playFile(base+'_es.mp3', t.speaker, t.es, 'es');
           } else {
             const z = zhItem(t.zh);
-            addBubble(t.speaker, zhRender(t.zh), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' });
+            addBubble(t.speaker, zhRender(t.zh), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t));
             result = await playFile(base+'_zh.mp3', t.speaker, z?.pinyin || 'a', 'zh');
           }
 
@@ -614,6 +627,7 @@
         convos=await (await fetch('conversations.json',{cache:'no-store'})).json();
         const toolkit=await (await fetch('toolkit38.json',{cache:'no-store'})).json();
         for(const t of toolkit){ zhMap.set(normZh(t.chinese), { pinyin:t.pinyin, pronounce:t.pronounce }); }
+        for(const t of toolkit){ zhToEnglish.set(normZh(t.chinese), t.english || ''); }
         for(const c of convos){const o=document.createElement('option');o.value=String(c.id);o.textContent=`${c.id}: ${c.title}`;el.conv.appendChild(o)}
         const savedConv = loadConversationPref();
         if(savedConv && convos.some(c=>String(c.id)===savedConv)) el.conv.value = savedConv;
