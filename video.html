@@ -70,6 +70,8 @@
         <button id="playZh" class="primary">▶️ Play Scene (Chinese)</button>
         <button id="stop">⏹️ Stop</button>
         <button id="refresh">♻️ Hard Refresh</button>
+        <button id="autoplay" title="Auto play next">⏭️ Autoplay: Off</button>
+        <button id="loopMode" title="Loop mode">🔁 Loop: Off</button>
       </section>
 
       <section class="card stage">
@@ -98,11 +100,12 @@
     </main>
 
     <script>
-      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
+      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),autoplay:document.getElementById('autoplay'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
       const playback = { active:false, paused:false, convId:null, lang:null, index:0, skipCurrent:false };
+      const playerPrefs = { autoplay:false, loopMode:0 }; // 0 off, 1 all, 2 one
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
 
       function setPlayPauseLabel(){
@@ -315,6 +318,36 @@
 
       
       
+      
+      function renderTransportButtons(){
+        el.autoplay.textContent = playerPrefs.autoplay ? '⏭️ Autoplay: On' : '⏭️ Autoplay: Off';
+        const loopTxt = playerPrefs.loopMode===2 ? '🔂 Loop: One' : (playerPrefs.loopMode===1 ? '🔁 Loop: All' : '🔁 Loop: Off');
+        el.loopMode.textContent = loopTxt;
+      }
+
+      function savePlayerPrefs(){
+        try{
+          localStorage.setItem('lm_autoplay', playerPrefs.autoplay ? '1':'0');
+          localStorage.setItem('lm_loop_mode', String(playerPrefs.loopMode));
+        }catch{}
+      }
+
+      function loadPlayerPrefs(){
+        try{
+          playerPrefs.autoplay = localStorage.getItem('lm_autoplay') === '1';
+          const m = Number(localStorage.getItem('lm_loop_mode') || '0');
+          playerPrefs.loopMode = [0,1,2].includes(m) ? m : 0;
+        }catch{}
+        renderTransportButtons();
+      }
+
+      function nextConversationId(currentId){
+        const ids = convos.map(c=>c.id);
+        const idx = ids.indexOf(currentId);
+        if(idx < 0) return ids[0] || null;
+        return ids[(idx + 1) % ids.length];
+      }
+
       function buildSpeedOptions(selectEl, defaultVal='1.0'){
         if(!selectEl) return;
         selectEl.innerHTML = '';
@@ -429,10 +462,27 @@
         }
 
         talk(''); stopLipSync();
+        const finishedConvId = playback.convId;
+        const finishedLang = playback.lang;
+        const canAdvance = playback.index >= c.turns.length;
+
         playback.active = false;
         playback.paused = false;
         playback.skipCurrent = false;
         setPlayPauseLabel();
+
+        if(canAdvance && (playerPrefs.autoplay || playerPrefs.loopMode !== 0)){
+          let targetId = null;
+          if(playerPrefs.loopMode === 2){
+            targetId = finishedConvId; // loop one
+          } else if(playerPrefs.loopMode === 1 || playerPrefs.autoplay){
+            targetId = nextConversationId(finishedConvId); // loop all/autoplay chain
+          }
+          if(targetId != null){
+            el.conv.value = String(targetId);
+            setTimeout(()=>playScene(finishedLang), 280);
+          }
+        }
       }
 
       
@@ -482,6 +532,17 @@
       el.speedEs.addEventListener('change', saveSpeedPrefs);
       el.speedZh.addEventListener('change', saveSpeedPrefs);
 
+      el.autoplay.addEventListener('click', ()=>{
+        playerPrefs.autoplay = !playerPrefs.autoplay;
+        savePlayerPrefs();
+        renderTransportButtons();
+      });
+      el.loopMode.addEventListener('click', ()=>{
+        playerPrefs.loopMode = (playerPrefs.loopMode + 1) % 3;
+        savePlayerPrefs();
+        renderTransportButtons();
+      });
+
       el.refresh.addEventListener('click', async ()=>{
         try {
           if (window.caches && caches.keys) {
@@ -499,6 +560,7 @@
       });
       initSpeedSelects();
       loadSpeedPrefs();
+      loadPlayerPrefs();
       setPlayPauseLabel();
       init();
     </script>
