@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conversation Video Mode</title>
+    <link rel="stylesheet" href="nav.css"/>
     <style>
       :root{--bg:#0d1117;--card:#1b2330;--text:#edf2ff;--muted:#9db0ce;--accent:#7db0ff}
       *{box-sizing:border-box} body{margin:0;height:100dvh;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
@@ -53,8 +54,9 @@
     </style>
   </head>
   <body>
+    <header class="topbar"><button id="menuBtn" class="menu-btn">☰</button><h1>Video Conversation Mode</h1></header>
+    <nav id="drawer" class="drawer"><a href="index.html">Main App</a><a href="video.html">Video Conversations</a><a href="grammar-chinese.html">Chinese Grammar</a><a href="grammar-spanish.html">Spanish Grammar</a></nav>
     <main class="app">
-      <h1 class="title">🎬 Video Conversation Mode</h1>
       <p class="muted subtitle">Spanish first, then Chinese. (20 conversations)</p>
 
       <section class="card row header">
@@ -643,5 +645,6 @@
       setPlayPauseLabel();
       init();
     </script>
-  </body>
+      <script src="nav.js"></script>
+</body>
 </html>

@@ -1,0 +1,1 @@
+const btn=document.getElementById("menuBtn");const drawer=document.getElementById("drawer");if(btn&&drawer){btn.addEventListener("click",()=>drawer.classList.toggle("open"));document.addEventListener("click",(e)=>{if(!drawer.contains(e.target)&&e.target!==btn)drawer.classList.remove("open");});}
