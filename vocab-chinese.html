@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chinese Vocabulary</title><link rel="stylesheet" href="nav.css"/>
+<style>body{background:#0d1117;color:#edf2ff;font-family:Inter,system-ui;margin:0}.wrap{max-width:960px;margin:0 auto;padding:14px}.card{background:#1b2330;padding:12px;border-radius:12px;margin:10px 0}.muted{color:#9db0ce}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #2a3448;padding:8px;text-align:left}th{color:#9db0ce}</style>
+</head><body>
+<header class="topbar"><button id="menuBtn" class="menu-btn">☰</button><h1>Chinese Vocabulary</h1></header>
+<nav id="drawer" class="drawer"><a href="index.html">Main App</a><a href="video.html">Video Conversations</a><a href="grammar-chinese.html">Chinese Grammar</a><a href="grammar-spanish.html">Spanish Grammar</a><a href="vocab-spanish.html">Spanish Vocabulary</a><a href="vocab-chinese.html">Chinese Vocabulary</a></nav>
+<main class="wrap"><section class="card"><p class="muted">No Chinese characters shown.</p><table id="tbl"><thead><tr><th>#</th><th>Pinyin</th><th>(Pronunciation)</th><th>English Meaning</th></tr></thead><tbody></tbody></table></section></main>
+<script>
+(async ()=>{
+  const zh=await (await fetch('toolkit38.json',{cache:'no-store'})).json();
+  const b=document.querySelector('#tbl tbody');
+  for(const z of zh){ const tr=document.createElement('tr'); tr.innerHTML=`<td>${z.id}</td><td>${z.pinyin||''}</td><td>${z.pronounce?`(${z.pronounce})`:''}</td><td>${z.english}</td>`; b.appendChild(tr);} 
+})();
+</script><script src="nav.js"></script></body></html>
