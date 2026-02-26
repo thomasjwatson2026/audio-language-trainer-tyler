@@ -40,10 +40,11 @@
       .bubble-tip{position:absolute;bottom:calc(100% + 6px);left:8px;max-width:88%;background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:6px 8px;border-radius:8px;font-size:.78rem;line-height:1.25;box-shadow:0 6px 16px rgba(0,0,0,.35);pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .14s ease,transform .14s ease;z-index:5}
       .bubble.b .bubble-tip{left:auto;right:8px}
       .bubble.show-tip .bubble-tip{opacity:1;transform:translateY(0)}
-      .word-panel{margin-top:6px;padding:6px;border-radius:8px;background:#101a2a;border:1px solid #2d466f;display:none}
-      .word-panel.open{display:block}
-      .word-chip{display:inline-block;margin:2px 4px 2px 0;padding:3px 7px;border-radius:999px;border:1px solid #3b567f;background:#16253d;color:#d8e8ff;font-size:.75rem;cursor:pointer}
-      .word-def{margin-top:6px;font-size:.78rem;color:#cfe0ff;min-height:16px}
+      .inline-words{margin-top:6px;line-height:1.6}
+      .word-chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 6px;border-radius:999px;border:1px solid #3b567f;background:#16253d;color:#d8e8ff;font-size:.75rem;cursor:pointer;position:relative}
+      .word-chip-tip{position:absolute;left:0;bottom:calc(100% + 6px);background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:4px 6px;border-radius:7px;font-size:.72rem;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:7}
+      .word-chip.show-word-tip .word-chip-tip{opacity:1;transform:translateY(0)}
+      
       .bubble:hover{filter:brightness(1.06)}
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
@@ -405,24 +406,19 @@
 
       function addBubble(speaker, html, label, replay, meaning, words=[], lang='es'){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
-        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div><div class="word-panel"></div>`;
-        const panel = d.querySelector('.word-panel');
-        renderWordPanel(panel, words, lang);
+        const chips = words.map(w=>`<span class="word-chip" data-w="${w}" data-lang="${lang}">${w}<span class="word-chip-tip">${w} = ${lookupWordMeaning(w,lang)}</span></span>`).join(' ');
+        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div><div class="inline-words">${chips}</div>`;
 
         d.addEventListener('click', (ev)=>{
-          // If tapping a chip, only show that definition
           const chip = ev.target.closest('.word-chip');
           if(chip){
-            const w = chip.getAttribute('data-w');
-            const l = chip.getAttribute('data-lang');
-            const out = panel.querySelector('.word-def');
-            if(out) out.textContent = `${w} = ${lookupWordMeaning(w,l)}`;
-            panel.classList.add('open');
+            ev.stopPropagation();
+            chip.classList.add('show-word-tip');
+            setTimeout(()=>chip.classList.remove('show-word-tip'), 1800);
             return;
           }
 
           d.classList.add('show-tip');
-          panel.classList.add('open');
           setTimeout(()=>d.classList.remove('show-tip'), 1800);
 
           if(replay){
