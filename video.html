@@ -363,6 +363,29 @@
 
 
 
+
+      function normalizeWordKey(w){
+        return (w||'')
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[̀-ͯ]/g,'')
+          .replace(/[^a-z0-9ñáéíóúü]+/gi,'');
+      }
+
+      function sentenceToClickableHtml(text, lang){
+        const parts = String(text||'').split(/(\s+)/);
+        return parts.map(part => {
+          if(/^\s+$/.test(part)) return part;
+          const m = part.match(/^([¡¿"'([\{]*)(.*?)([!?,.;:"')\]}…]*)$/);
+          const lead = m ? m[1] : '';
+          const core = m ? m[2] : part;
+          const trail = m ? m[3] : '';
+          const key = normalizeWordKey(core);
+          if(!key) return part;
+          return `${lead}<span class="sent-word" data-w="${key}" data-lang="${lang}">${core}<span class="word-chip-tip">${core} = ${lookupWordMeaning(key,lang)}</span></span>${trail}`;
+        }).join('');
+      }
+
       function tokenizeWords(text){
         return (text||'').toLowerCase().replace(/[¡!¿?.,;:()\[\]…]/g,' ').split(/\s+/).filter(Boolean);
       }
@@ -374,8 +397,9 @@
       }
 
       function lookupWordMeaning(word, lang){
-        if(lang==='es') return esWordMap.get(word) || '(definition not mapped yet)';
-        return zhWordMap.get(word) || '(definition not mapped yet)';
+        const k = normalizeWordKey(word);
+        if(lang==='es') return esWordMap.get(k) || '(definition not mapped yet)';
+        return zhWordMap.get(k) || '(definition not mapped yet)';
       }
 
       function turnEnglishMeaning(turn){
@@ -406,10 +430,9 @@
         }catch{ talk(''); }
       }
 
-      function addBubble(speaker, displayText, label, replay, meaning, words=[], lang='es', subText=''){
+      function addBubble(speaker, displayText, label, replay, meaning, lang='es', subText=''){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
-        const chips = words.map(w=>`<span class="sent-word" data-w="${w}" data-lang="${lang}">${w}<span class="word-chip-tip">${w} = ${lookupWordMeaning(w,lang)}</span></span>`).join(' ');
-        const line = chips || displayText;
+        const line = sentenceToClickableHtml(displayText, lang);
         const sub = subText ? `<span class="bubble-sub">${subText}</span>` : '';
         d.innerHTML=`<div class="bubble-line"><strong>${speaker} · ${label}:</strong> ${line}${sub}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div>`;
 
@@ -417,7 +440,6 @@
           const chip = ev.target.closest('.sent-word');
           if(chip){
             ev.stopPropagation();
-            // close any currently open word tooltips first
             document.querySelectorAll('.sent-word.show-word-tip').forEach(el=>el.classList.remove('show-word-tip'));
             chip.classList.add('show-word-tip');
             setTimeout(()=>chip.classList.remove('show-word-tip'), 1800);
@@ -585,11 +607,11 @@
 
           let result = 'error';
           if(lang==='es'){
-            addBubble(t.speaker, t.es, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t), tokenizeWords(t.es), 'es');
+            addBubble(t.speaker, t.es, 'ES', { path: base+'_es.mp3', text: t.es, lang: 'es' }, turnEnglishMeaning(t), 'es');
             result = await playFile(base+'_es.mp3', t.speaker, t.es, 'es');
           } else {
             const z = zhItem(t.zh);
-            addBubble(t.speaker, (z?.pinyin || ''), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t), tokenizeWords(z?.pinyin || ''), 'zh', z?.pronounce ? `(${z.pronounce})` : '');
+            addBubble(t.speaker, (z?.pinyin || ''), 'ZH', { path: base+'_zh.mp3', text: (z?.pinyin || 'a'), lang: 'zh' }, turnEnglishMeaning(t), 'zh', z?.pronounce ? `(${z.pronounce})` : '');
             result = await playFile(base+'_zh.mp3', t.speaker, z?.pinyin || 'a', 'zh');
           }
 
@@ -669,8 +691,8 @@
         const toolkit=await (await fetch('toolkit38.json',{cache:'no-store'})).json();
         const esWords=await (await fetch('wordbank-spanish.json',{cache:'no-store'})).json();
         const zhWords=await (await fetch('wordbank-chinese.json',{cache:'no-store'})).json();
-        for(const w of esWords){ esWordMap.set(String(w.word||'').toLowerCase(), w.meaning || ''); }
-        for(const w of zhWords){ zhWordMap.set(String(w.word||'').toLowerCase(), w.meaning || ''); }
+        for(const w of esWords){ esWordMap.set(normalizeWordKey(String(w.word||'')), w.meaning || ''); }
+        for(const w of zhWords){ zhWordMap.set(normalizeWordKey(String(w.word||'')), w.meaning || ''); }
         for(const t of toolkit){ zhMap.set(normZh(t.chinese), { pinyin:t.pinyin, pronounce:t.pronounce }); }
         for(const t of toolkit){ zhToEnglish.set(normZh(t.chinese), t.english || ''); }
         for(const c of convos){const o=document.createElement('option');o.value=String(c.id);o.textContent=`${c.id}: ${c.title}`;el.conv.appendChild(o)}

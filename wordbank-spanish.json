@@ -1,7 +1,7 @@
 [
   {
     "word": "a",
-    "meaning": "(add meaning)",
+    "meaning": "to",
     "appearsIn": [
       5,
       13,
@@ -273,7 +273,7 @@
   },
   {
     "word": "de",
-    "meaning": "(add meaning)",
+    "meaning": "of/from",
     "appearsIn": [
       1,
       2,
@@ -352,7 +352,7 @@
   },
   {
     "word": "el",
-    "meaning": "(add meaning)",
+    "meaning": "the",
     "appearsIn": [
       4,
       7,
@@ -361,7 +361,7 @@
   },
   {
     "word": "en",
-    "meaning": "(add meaning)",
+    "meaning": "in/on",
     "appearsIn": [
       1,
       4,
@@ -391,7 +391,7 @@
   },
   {
     "word": "es",
-    "meaning": "(add meaning)",
+    "meaning": "is",
     "appearsIn": [
       2,
       8,
@@ -427,13 +427,18 @@
   },
   {
     "word": "estados",
-    "meaning": "(add meaning)",
+    "meaning": "states",
     "appearsIn": [
       1,
       4,
       9,
       18
     ]
+  },
+  {
+    "word": "estados unidos",
+    "meaning": "United States",
+    "appearsIn": []
   },
   {
     "word": "esto",
@@ -623,7 +628,7 @@
   },
   {
     "word": "la",
-    "meaning": "(add meaning)",
+    "meaning": "the",
     "appearsIn": [
       3,
       4
@@ -631,7 +636,7 @@
   },
   {
     "word": "las",
-    "meaning": "(add meaning)",
+    "meaning": "the (plural)",
     "appearsIn": [
       17
     ]
@@ -659,7 +664,7 @@
   },
   {
     "word": "los",
-    "meaning": "(add meaning)",
+    "meaning": "the (plural)",
     "appearsIn": [
       1,
       9
@@ -1075,7 +1080,7 @@
   },
   {
     "word": "un",
-    "meaning": "(add meaning)",
+    "meaning": "a/an",
     "appearsIn": [
       1,
       2,
@@ -1086,14 +1091,14 @@
   },
   {
     "word": "una",
-    "meaning": "(add meaning)",
+    "meaning": "a/an",
     "appearsIn": [
       15
     ]
   },
   {
     "word": "unidos",
-    "meaning": "(add meaning)",
+    "meaning": "united",
     "appearsIn": [
       1,
       4,
