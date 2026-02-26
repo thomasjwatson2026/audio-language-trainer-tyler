@@ -45,6 +45,8 @@
       .sent-word:hover{background:transparent; color:#dcecff}
       .word-chip-tip{position:absolute;left:0;bottom:calc(100% + 6px);background:#0f1625;border:1px solid #36507a;color:#e9f2ff;padding:4px 6px;border-radius:7px;font-size:.72rem;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease;z-index:7}
       .sent-word.show-word-tip .word-chip-tip{opacity:1;transform:translateY(0)}
+      .bubble-line{display:block;width:100%}
+      .bubble-sub{display:block;margin-top:4px;color:#9db0ce}
       
       .muted{color:var(--muted)}
       .title{font-size:1.05rem;margin:0}
@@ -407,13 +409,16 @@
       function addBubble(speaker, displayText, label, replay, meaning, words=[], lang='es', subText=''){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
         const chips = words.map(w=>`<span class="sent-word" data-w="${w}" data-lang="${lang}">${w}<span class="word-chip-tip">${w} = ${lookupWordMeaning(w,lang)}</span></span>`).join(' ');
-        const sub = subText ? `<div class="muted">${subText}</div>` : '';
-        d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${chips || displayText}</div>${sub}<div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div>`;
+        const line = chips || displayText;
+        const sub = subText ? `<span class="bubble-sub">${subText}</span>` : '';
+        d.innerHTML=`<div class="bubble-line"><strong>${speaker} · ${label}:</strong> ${line}${sub}</div><div class="bubble-tip">${meaning || 'English meaning not mapped yet'}</div>`;
 
         d.addEventListener('click', (ev)=>{
           const chip = ev.target.closest('.sent-word');
           if(chip){
             ev.stopPropagation();
+            // close any currently open word tooltips first
+            document.querySelectorAll('.sent-word.show-word-tip').forEach(el=>el.classList.remove('show-word-tip'));
             chip.classList.add('show-word-tip');
             setTimeout(()=>chip.classList.remove('show-word-tip'), 1800);
             return;
