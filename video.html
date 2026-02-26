@@ -100,6 +100,7 @@
     <script>
       const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
+      const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
       const playback = { active:false, paused:false, convId:null, lang:null, index:0, skipCurrent:false };
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
@@ -274,6 +275,23 @@
         return `<div>${item.pinyin}</div><div class='muted'>(${item.pronounce})</div>`;
       }
 
+
+      async function playPreview(path, lang, speaker){
+        try{
+          previewAudio.pause();
+          previewAudio.src = path;
+          previewAudio.currentTime = 0;
+          previewAudio.playbackRate = getLangSpeed(lang || 'es');
+          talk(speaker);
+          await previewAudio.play();
+          await new Promise((resolve)=>{
+            previewAudio.onended = () => resolve();
+            previewAudio.onerror = () => resolve();
+          });
+          talk('');
+        }catch{ talk(''); }
+      }
+
       function addBubble(speaker, html, label, replay){
         const d=document.createElement('div'); d.className='bubble '+speaker.toLowerCase();
         d.innerHTML=`<div><strong>${speaker} · ${label}:</strong> ${html}</div>`;
@@ -288,9 +306,7 @@
             }
             audio.pause();
             stopLipSync();
-            talk(speaker);
-            await playFile(replay.path, speaker, replay.text, replay.lang);
-            talk('');
+            await playPreview(replay.path, replay.lang, speaker);
           });
         }
         el.bubbles.appendChild(d);
