@@ -18,9 +18,9 @@
       .people{display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px;padding-top:6px;padding-bottom:8px;border-top:1px solid #2a3448;flex:0 0 auto}
       .person{width:48%;display:flex;flex-direction:column;align-items:center;gap:4px}
       .avatar{position:relative;width:96px;height:96px;border-radius:18px;display:block;background:#6f7f9d;border:2px solid #2b3650;transition:transform .12s ease, box-shadow .12s ease;overflow:hidden}
+      .rig{position:absolute;inset:0;width:100%;height:100%}
       .face-b{background:#7a8cb2}
-      .portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:rgba(0,0,0,.15);filter:saturate(1.05) contrast(1.03)}
-      .eye{position:absolute;top:37px;width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 0 0 1px rgba(40,52,72,.45);overflow:hidden;transition:transform .08s linear,height .08s linear}
+            .eye{position:absolute;top:37px;width:9px;height:9px;border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 0 0 1px rgba(40,52,72,.45);overflow:hidden;transition:transform .08s linear,height .08s linear}
       .eye::after{content:"";position:absolute;left:3px;top:3px;width:3px;height:3px;border-radius:999px;background:rgba(15,23,37,.78);transition:transform .08s linear}
       .eye-l{left:23px}.eye-r{right:23px}
       .mouth{position:absolute;left:50%;top:68px;transform:translate(-50%,-50%);width:14px;height:4px;border-radius:999px;background:rgba(90,29,38,.7);transform-origin:center center;transition:transform .05s linear,width .05s linear,height .05s linear,border-radius .05s linear}
@@ -29,18 +29,8 @@
       .avatar.talking{transform:scale(1.03);box-shadow:0 0 0 3px rgba(125,176,255,.22)}
       .name{font-size:.82rem;color:var(--muted)}
 
-      .helm{display:none}
-      .badge{position:absolute;left:6px;bottom:6px;font-size:.55rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.42);border:1px solid rgba(255,255,255,.14)}
-      .unit-peasant{background:linear-gradient(160deg,#b89269,#9a734f)}
-      .unit-footman{background:linear-gradient(160deg,#7388b1,#4d6186)}
-      .unit-rifleman{background:linear-gradient(160deg,#7f6b58,#5f4f41)}
-      .unit-priest{background:linear-gradient(160deg,#d8d2b0,#a79f7e)}
-      .unit-archer{background:linear-gradient(160deg,#6ca06f,#4d7a50)}
-      .unit-grunt{background:linear-gradient(160deg,#7b9b56,#56743a)}
-      .unit-peon{background:linear-gradient(160deg,#8ca36e,#60784a)}
-      .unit-acolyte{background:linear-gradient(160deg,#9483a8,#685978)}
-      .unit-sorceress{background:linear-gradient(160deg,#9b7abb,#6f5790)}
-
+            .badge{position:absolute;left:6px;bottom:6px;font-size:.55rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.42);border:1px solid rgba(255,255,255,.14)}
+                                                      
       .bubble-wrap{display:flex;flex-direction:column;justify-content:flex-end;gap:8px;margin-top:4px;flex:1;min-height:0;overflow-y:auto;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
       .bubble.a{align-self:flex-start}.bubble.b{align-self:flex-end;background:#21314a}
@@ -79,31 +69,51 @@
         <div id="bubbles" class="bubble-wrap"></div>
         <div class="people">
           <div class="person">
-            <div id="a" class="avatar face-a unit-peasant">
-              <img id="aPortrait" class="portrait" src="assets/avatars/peasant.png" alt="Speaker A avatar" />
-              <span class="helm"></span>
+            <div id="a" class="avatar">
+              <svg class="rig" id="aRig" viewBox="0 0 128 128" aria-hidden="true">
+                <defs>
+                  <linearGradient id="aGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop id="aBg1" offset="0%" stop-color="#c89f74"/>
+                    <stop id="aBg2" offset="100%" stop-color="#5a6f8f"/>
+                  </linearGradient>
+                </defs>
+                <rect width="128" height="128" rx="16" fill="url(#aGrad)"/>
+                <rect x="14" y="10" width="100" height="18" rx="9" fill="rgba(20,24,35,.30)"/>
+                <ellipse id="aFace" cx="64" cy="72" rx="34" ry="30" fill="#d9b389"/>
+                <ellipse id="aEyeL" cx="51" cy="60" rx="6" ry="6" fill="#1b2230"/>
+                <ellipse id="aEyeR" cx="77" cy="60" rx="6" ry="6" fill="#1b2230"/>
+                <ellipse id="mouthA" cx="64" cy="84" rx="9" ry="4" fill="#6a1f29"/>
+              </svg>
               <span class="badge" id="aBadge">🧱 Peasant</span>
-              <span class="eye eye-l" id="aEyeL"></span><span class="eye eye-r" id="aEyeR"></span>
-              <span class="mouth" id="mouthA"></span>
             </div>
-            <div class="name" id="aName">Speaker A</div>
+            <div class="name" id="aName">Speaker A · Peasant</div>
           </div>
           <div class="person">
-            <div id="b" class="avatar face-b unit-peon">
-              <img id="bPortrait" class="portrait" src="assets/avatars/footman.png" alt="Speaker B avatar" />
-              <span class="helm"></span>
-              <span class="badge" id="bBadge">🐲 Peon</span>
-              <span class="eye eye-l" id="bEyeL"></span><span class="eye eye-r" id="bEyeR"></span>
-              <span class="mouth" id="mouthB"></span>
+            <div id="b" class="avatar">
+              <svg class="rig" id="bRig" viewBox="0 0 128 128" aria-hidden="true">
+                <defs>
+                  <linearGradient id="bGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop id="bBg1" offset="0%" stop-color="#7a9f58"/>
+                    <stop id="bBg2" offset="100%" stop-color="#415b35"/>
+                  </linearGradient>
+                </defs>
+                <rect width="128" height="128" rx="16" fill="url(#bGrad)"/>
+                <rect x="14" y="10" width="100" height="18" rx="9" fill="rgba(20,24,35,.30)"/>
+                <ellipse id="bFace" cx="64" cy="72" rx="34" ry="30" fill="#b78f6b"/>
+                <ellipse id="bEyeL" cx="51" cy="60" rx="6" ry="6" fill="#1b2230"/>
+                <ellipse id="bEyeR" cx="77" cy="60" rx="6" ry="6" fill="#1b2230"/>
+                <ellipse id="mouthB" cx="64" cy="84" rx="9" ry="4" fill="#5a1d26"/>
+              </svg>
+              <span class="badge" id="bBadge">🪓 Grunt</span>
             </div>
-            <div class="name" id="bName">Speaker B</div>
+            <div class="name" id="bName">Speaker B · Grunt</div>
           </div>
-        </div>
+        </div></div>
       </section>
     </main>
 
     <script>
-      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aPortrait:document.getElementById('aPortrait'),bPortrait:document.getElementById('bPortrait'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
+      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aBg1:document.getElementById('aBg1'),aBg2:document.getElementById('aBg2'),aFace:document.getElementById('aFace'),bBg1:document.getElementById('bBg1'),bBg2:document.getElementById('bBg2'),bFace:document.getElementById('bFace'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
@@ -215,33 +225,22 @@
         const target = speaker==='A' ? el.mouthA : el.mouthB;
         const other = speaker==='A' ? el.mouthB : el.mouthA;
         const shapes = {
-          rest:   {w:18,h:6,r:999,sy:1},
-          closed: {w:16,h:4,r:999,sy:1},
-          wide:   {w:24,h:8,r:8,  sy:1.05},
-          open:   {w:18,h:14,r:6, sy:1.2},
-          round:  {w:13,h:13,r:999,sy:1.15},
-          teeth:  {w:21,h:6,r:5, sy:1.0},
+          rest:   {rx:9, ry:4},
+          closed: {rx:8, ry:2},
+          wide:   {rx:12,ry:3},
+          open:   {rx:8, ry:7},
+          round:  {rx:6, ry:6},
+          teeth:  {rx:10,ry:3}
         };
         const s = shapes[shape] || shapes.rest;
-        target.style.width = `${s.w}px`;
-        target.style.height = `${s.h}px`;
-        target.style.borderRadius = `${s.r}px`;
-        target.style.transform = `translate(-50%,-50%) scale(1,${s.sy})`;
-
-        const o = shapes.rest;
-        other.style.width = `${o.w}px`;
-        other.style.height = `${o.h}px`;
-        other.style.borderRadius = `${o.r}px`;
-        other.style.transform = 'translate(-50%,-50%) scale(1,1)';
+        target.setAttribute('rx', String(s.rx));
+        target.setAttribute('ry', String(s.ry));
+        other.setAttribute('rx','9');
+        other.setAttribute('ry','4');
       }
 
       function resetMouths(){
-        for(const m of [el.mouthA, el.mouthB]){
-          m.style.height='6px';
-          m.style.width='18px';
-          m.style.borderRadius='999px';
-          m.style.transform='translate(-50%,-50%) scale(1,1)';
-        }
+        for(const m of [el.mouthA, el.mouthB]){ m.setAttribute('rx','9'); m.setAttribute('ry','4'); }
       }
 
       function normalizeLatin(s){
@@ -271,25 +270,28 @@
         const eyes = speaker==='A' ? [el.aEyeL, el.aEyeR] : [el.bEyeL, el.bEyeR];
         const other = speaker==='A' ? [el.bEyeL, el.bEyeR] : [el.aEyeL, el.aEyeR];
         const blink = (Math.sin(elapsedSec * 2.6) > 0.96) || (energy < 0.09 && Math.sin(elapsedSec*5.7)>0.985);
-        const x = Math.round(Math.sin(elapsedSec * 1.8) * 1.8);
-        const y = Math.round(Math.cos(elapsedSec * 1.3) * 0.8);
+        const x = Math.round(Math.sin(elapsedSec * 1.8) * 1.2);
+        const y = Math.round(Math.cos(elapsedSec * 1.3) * 0.6);
         for(const e of eyes){
-          e.style.height = blink ? '3px' : '10px';
-          e.style.transform = `translate(${x}px, ${y}px)`;
-          e.style.opacity = '1';
+          e.setAttribute('ry', blink ? '2' : '6');
+          const base = e.id.includes('L') ? 51 : 77;
+          e.setAttribute('cx', String(base + x));
+          e.setAttribute('cy', String(60 + y));
         }
         for(const e of other){
-          e.style.height = '10px';
-          e.style.transform = 'translate(0,0)';
-          e.style.opacity = '.9';
+          e.setAttribute('ry','6');
+          const base = e.id.includes('L') ? 51 : 77;
+          e.setAttribute('cx', String(base));
+          e.setAttribute('cy','60');
         }
       }
 
       function resetEyes(){
         for(const e of [el.aEyeL,el.aEyeR,el.bEyeL,el.bEyeR]){
-          e.style.height='10px';
-          e.style.transform='translate(0,0)';
-          e.style.opacity='1';
+          const base = e.id.includes('L') ? 51 : 77;
+          e.setAttribute('cx', String(base));
+          e.setAttribute('cy', '60');
+          e.setAttribute('ry', '6');
         }
       }
 
@@ -553,47 +555,34 @@
 
       
       const unitPool = [
-        {cls:'unit-peasant', label:'🧱 Peasant'},
-        {cls:'unit-footman', label:'🛡️ Footman'},
-        {cls:'unit-rifleman', label:'🔫 Rifleman'},
-        {cls:'unit-priest', label:'✨ Priest'},
-        {cls:'unit-archer', label:'🏹 Archer'},
-        {cls:'unit-grunt', label:'🪓 Grunt'},
-        {cls:'unit-peon', label:'⛏️ Peon'},
-        {cls:'unit-acolyte', label:'☠️ Acolyte'},
-        {cls:'unit-sorceress', label:'🔮 Sorceress'}
+        {id:'peasant', cls:'unit-peasant', name:'Peasant', badge:'🧱 Peasant', bg1:'#c89f74', bg2:'#5a6f8f', face:'#d9b389'},
+        {id:'footman', cls:'unit-footman', name:'Footman', badge:'🛡️ Footman', bg1:'#7089b9', bg2:'#445977', face:'#d1b090'},
+        {id:'archer', cls:'unit-archer', name:'Archer', badge:'🏹 Archer', bg1:'#74a66f', bg2:'#476a45', face:'#d2b18f'},
+        {id:'grunt', cls:'unit-grunt', name:'Grunt', badge:'🪓 Grunt', bg1:'#7a9f58', bg2:'#415b35', face:'#b78f6b'}
       ];
 
-      
-      function unitKeyFromLabel(label){
-        const n = label.toLowerCase();
-        if(n.includes('peasant')) return 'peasant';
-        if(n.includes('footman')) return 'footman';
-        if(n.includes('rifleman')) return 'rifleman';
-        if(n.includes('priest')) return 'priest';
-        if(n.includes('archer')) return 'archer';
-        if(n.includes('grunt')) return 'grunt';
-        if(n.includes('peon')) return 'peon';
-        if(n.includes('acolyte')) return 'acolyte';
-        if(n.includes('sorceress')) return 'sorceress';
-        return 'peasant';
-      }
-
-      function avatarUrl(unitKey){
-        return `./assets/avatars/${unitKey}.png?v=3`;
+      function applyUnitTheme(side, unit){
+        if(side==='a'){
+          el.aBg1.setAttribute('stop-color', unit.bg1);
+          el.aBg2.setAttribute('stop-color', unit.bg2);
+          el.aFace.setAttribute('fill', unit.face);
+          el.aBadge.textContent = unit.badge;
+          el.aName.textContent = `Speaker A · ${unit.name}`;
+        } else {
+          el.bBg1.setAttribute('stop-color', unit.bg1);
+          el.bBg2.setAttribute('stop-color', unit.bg2);
+          el.bFace.setAttribute('fill', unit.face);
+          el.bBadge.textContent = unit.badge;
+          el.bName.textContent = `Speaker B · ${unit.name}`;
+        }
       }
 
       function applySpeakerUnits(){
         const pick = () => unitPool[Math.floor(Math.random()*unitPool.length)];
         const a = pick(); let b = pick();
-        while(b.cls===a.cls) b = pick();
-        for(const u of unitPool){ el.a.classList.remove(u.cls); el.b.classList.remove(u.cls); }
-        el.a.classList.add(a.cls); el.b.classList.add(b.cls);
-        el.aBadge.textContent = a.label; el.bBadge.textContent = b.label;
-        el.aName.textContent = `Speaker A · ${a.label.split(' ').slice(1).join(' ')}`;
-        el.bName.textContent = `Speaker B · ${b.label.split(' ').slice(1).join(' ')}`;
-        el.aPortrait.src = avatarUrl(unitKeyFromLabel(a.label));
-        el.bPortrait.src = avatarUrl(unitKeyFromLabel(b.label));
+        while(b.id === a.id) b = pick();
+        applyUnitTheme('a', a);
+        applyUnitTheme('b', b);
       }
 
       async function init(){
