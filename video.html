@@ -61,28 +61,10 @@
           <select id="conv"></select>
         </label>
         <label>Spanish Speed
-          <select id="speedEs">
-            <option value="0.5">0.5x</option>
-            <option value="0.7">0.7x</option>
-            <option value="0.85">0.85x</option>
-            <option value="1" selected>1.0x</option>
-            <option value="1.25">1.25x</option>
-            <option value="1.5">1.5x</option>
-            <option value="1.75">1.75x</option>
-            <option value="2">2.0x</option>
-          </select>
+          <select id="speedEs"></select>
         </label>
         <label>Chinese Speed
-          <select id="speedZh">
-            <option value="0.5">0.5x</option>
-            <option value="0.7">0.7x</option>
-            <option value="0.85">0.85x</option>
-            <option value="1" selected>1.0x</option>
-            <option value="1.25">1.25x</option>
-            <option value="1.5">1.5x</option>
-            <option value="1.75">1.75x</option>
-            <option value="2">2.0x</option>
-          </select>
+          <select id="speedZh"></select>
         </label>
         <button id="playEs" class="primary">▶️ Play Scene (Spanish)</button>
         <button id="playZh" class="primary">▶️ Play Scene (Chinese)</button>
@@ -119,10 +101,16 @@
       const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       let convos=[];
-      const playback = { active:false, paused:false, convId:null, lang:null, index:0 };
+      const playback = { active:false, paused:false, convId:null, lang:null, index:0, skipCurrent:false };
       const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
 
       function setPlayPauseLabel(){
+        if(!playback.active){
+          el.stop.textContent = '⏸ Pause';
+          el.stop.disabled = true;
+          return;
+        }
+        el.stop.disabled = false;
         el.stop.textContent = playback.paused ? '▶️ Resume' : '⏸ Pause';
       }
 
@@ -295,6 +283,7 @@
           d.addEventListener('click', async () => {
             if(playback.active){
               playback.paused = true;
+              playback.skipCurrent = true; // continue to next unseen bubble on resume
               setPlayPauseLabel();
             }
             audio.pause();
@@ -309,6 +298,25 @@
       }
 
       
+      
+      function buildSpeedOptions(selectEl, defaultVal='1.0'){
+        if(!selectEl) return;
+        selectEl.innerHTML = '';
+        for(let v=0.5; v<=2.0001; v+=0.1){
+          const val = (Math.round(v*10)/10).toFixed(1);
+          const o = document.createElement('option');
+          o.value = val;
+          o.textContent = `${val}x`;
+          if(val === defaultVal) o.selected = true;
+          selectEl.appendChild(o);
+        }
+      }
+
+      function initSpeedSelects(){
+        buildSpeedOptions(el.speedEs, '1.0');
+        buildSpeedOptions(el.speedZh, '1.0');
+      }
+
       const SPEED_KEYS = { es: 'lm_speed_es', zh: 'lm_speed_zh' };
 
       function getLangSpeed(lang){
@@ -364,6 +372,7 @@
         const c=convos.find(x=>String(x.id)===el.conv.value); if(!c) return;
         playback.active = true;
         playback.paused = false;
+        playback.skipCurrent = false;
         playback.convId = c.id;
         playback.lang = lang;
         playback.index = 0;
@@ -390,8 +399,12 @@
           }
 
           if(result === 'paused'){
+            if(playback.skipCurrent){
+              playback.index += 1; // move to next bubble on resume
+              playback.skipCurrent = false;
+            }
             await sleep(80);
-            continue; // replay same line on resume
+            continue;
           }
           if(result !== 'ended') break;
 
@@ -402,6 +415,7 @@
         talk(''); stopLipSync();
         playback.active = false;
         playback.paused = false;
+        playback.skipCurrent = false;
         setPlayPauseLabel();
       }
 
@@ -441,7 +455,12 @@
       el.stop.addEventListener('click',()=>{
         if(!playback.active) return;
         playback.paused = !playback.paused;
-        if(playback.paused){ audio.pause(); talk(''); stopLipSync(); }
+        if(playback.paused){
+          playback.skipCurrent = true; // resume from next unseen bubble
+          audio.pause();
+          talk('');
+          stopLipSync();
+        }
         setPlayPauseLabel();
       });
       el.speedEs.addEventListener('change', saveSpeedPrefs);
@@ -462,6 +481,7 @@
         u.searchParams.set('v', Date.now().toString());
         window.location.replace(u.toString());
       });
+      initSpeedSelects();
       loadSpeedPrefs();
       setPlayPauseLabel();
       init();
