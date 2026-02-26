@@ -1,7 +1,7 @@
 [
   {
     "word": "ba",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       5,
       13,
@@ -10,14 +10,14 @@
   },
   {
     "word": "bié",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       19
     ]
   },
   {
     "word": "bú",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       2,
       6,
@@ -27,7 +27,7 @@
   },
   {
     "word": "bāng",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12,
       19
@@ -43,7 +43,7 @@
   },
   {
     "word": "chá",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       3
     ]
@@ -59,21 +59,21 @@
   },
   {
     "word": "chīfàn",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       13
     ]
   },
   {
     "word": "cì",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       15
     ]
   },
   {
     "word": "cóng",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       1,
       9,
@@ -90,7 +90,7 @@
   },
   {
     "word": "de",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       4,
       9,
@@ -108,14 +108,14 @@
   },
   {
     "word": "dìtú",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
   },
   {
     "word": "fēicháng",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
@@ -131,42 +131,42 @@
   },
   {
     "word": "gèngduō",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       14
     ]
   },
   {
     "word": "gānbēi",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       3
     ]
   },
   {
     "word": "gāoxìng",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       18
     ]
   },
   {
     "word": "gěi",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       13
     ]
   },
   {
     "word": "gǎitiān",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       5
     ]
   },
   {
     "word": "gǎnxiè",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
@@ -183,7 +183,7 @@
   },
   {
     "word": "hái",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       15
     ]
@@ -223,14 +223,14 @@
   },
   {
     "word": "jìxù",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       20
     ]
   },
   {
     "word": "jí",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       19
     ]
@@ -247,14 +247,14 @@
   },
   {
     "word": "kàn",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
   },
   {
     "word": "kèqi",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       2,
       6,
@@ -264,21 +264,21 @@
   },
   {
     "word": "kěyǐ",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       16
     ]
   },
   {
     "word": "kǎ",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       16
     ]
   },
   {
     "word": "le",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       8,
       9,
@@ -287,7 +287,7 @@
   },
   {
     "word": "liànxí",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       14,
       17
@@ -312,14 +312,14 @@
   },
   {
     "word": "láizì",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       18
     ]
   },
   {
     "word": "lǚxíng",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       15
     ]
@@ -340,7 +340,7 @@
   },
   {
     "word": "man",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       19
     ]
@@ -364,7 +364,7 @@
   },
   {
     "word": "mílù",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
@@ -379,7 +379,7 @@
   },
   {
     "word": "měiguórén",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       1,
       9
@@ -387,14 +387,14 @@
   },
   {
     "word": "měitiān",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       14
     ]
   },
   {
     "word": "měiyuán",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       13
     ]
@@ -410,7 +410,7 @@
   },
   {
     "word": "niǔyuē",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       1,
       9
@@ -418,14 +418,14 @@
   },
   {
     "word": "nàbiān",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
   },
   {
     "word": "nàlǐ",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       9
     ]
@@ -465,14 +465,14 @@
   },
   {
     "word": "nǐde",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       4
     ]
   },
   {
     "word": "nǐhǎo",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       1,
       6
@@ -498,7 +498,7 @@
   },
   {
     "word": "ránhòu",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       17,
       20
@@ -506,14 +506,14 @@
   },
   {
     "word": "rènshi",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       18
     ]
   },
   {
     "word": "shuākǎ",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       16
     ]
@@ -571,7 +571,7 @@
   },
   {
     "word": "shōu",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       16
     ]
@@ -585,14 +585,14 @@
   },
   {
     "word": "tài",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       9
     ]
   },
   {
     "word": "wǎngshàng",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       4,
       7
@@ -624,7 +624,7 @@
   },
   {
     "word": "wǒmen",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       5,
       13,
@@ -637,7 +637,7 @@
   },
   {
     "word": "xiànzài",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       20
     ]
@@ -651,7 +651,7 @@
   },
   {
     "word": "xièxiè",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       2,
       6,
@@ -660,7 +660,7 @@
   },
   {
     "word": "xiān",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       20
     ]
@@ -693,7 +693,7 @@
   },
   {
     "word": "xuéxiào",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       4
     ]
@@ -709,21 +709,21 @@
   },
   {
     "word": "xībānyá",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       20
     ]
   },
   {
     "word": "xūyào",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       19
     ]
   },
   {
     "word": "xǐhuan",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       9
     ]
@@ -738,7 +738,7 @@
   },
   {
     "word": "xǐshǒujiān",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       12
     ]
@@ -761,21 +761,21 @@
   },
   {
     "word": "yìqǐ",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       5
     ]
   },
   {
     "word": "yí",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       15
     ]
   },
   {
     "word": "yě",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       10,
       14,
@@ -785,7 +785,7 @@
   },
   {
     "word": "yīdiǎn",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       1,
       7
@@ -793,7 +793,7 @@
   },
   {
     "word": "yīkuài",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       2
     ]
@@ -816,14 +816,14 @@
   },
   {
     "word": "yǔ",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       20
     ]
   },
   {
     "word": "zhège",
-    "meaning": "(add meaning)",
+    "meaning": "context word (from conversations)",
     "appearsIn": [
       2,
       8,
