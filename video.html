@@ -31,7 +31,8 @@
 
             .badge{position:absolute;left:6px;bottom:6px;font-size:.55rem;padding:2px 5px;border-radius:8px;background:rgba(10,16,26,.42);border:1px solid rgba(255,255,255,.14)}
                                                       
-      .bubble-wrap{display:block;margin-top:4px;flex:1;min-height:0;max-height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+      .bubble-wrap{display:flex;flex-direction:column;margin-top:4px;flex:1;min-height:0;max-height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;touch-action:pan-y;padding:8px 6px 8px 2px;border:1px solid #2a3448;border-radius:10px;background:#111a2a;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+      .bubble-list{margin-top:auto;display:block}
       .bubble{max-width:88%;padding:10px 12px;border-radius:12px;background:#202c42;border:1px solid #32415f;min-height:72px;display:flex;align-items:center;opacity:0;transform:translateY(14px) scale(.99);animation:bIn .28s ease forwards;will-change:transform,opacity}
       .bubble + .bubble{margin-top:8px}
       .bubble.a{margin-right:auto}.bubble.b{margin-left:auto;background:#21314a}
@@ -67,7 +68,7 @@
       </section>
 
       <section class="card stage">
-        <div id="bubbles" class="bubble-wrap"></div>
+        <div id="bubbles" class="bubble-wrap"><div id="bubbleList" class="bubble-list"></div></div>
         <div class="people">
           <div class="person">
             <div id="a" class="avatar">
@@ -114,7 +115,7 @@
     </main>
 
     <script>
-      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aBg1:document.getElementById('aBg1'),aBg2:document.getElementById('aBg2'),aFace:document.getElementById('aFace'),bBg1:document.getElementById('bBg1'),bBg2:document.getElementById('bBg2'),bFace:document.getElementById('bFace'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
+      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aBg1:document.getElementById('aBg1'),aBg2:document.getElementById('aBg2'),aFace:document.getElementById('aFace'),bBg1:document.getElementById('bBg1'),bBg2:document.getElementById('bBg2'),bFace:document.getElementById('bFace'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles'),bubbleList:document.getElementById('bubbleList')};
       const audio=new Audio(); audio.preload='auto';
       const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
@@ -385,7 +386,7 @@
             await playPreview(replay.path, replay.lang, speaker);
           });
         }
-        el.bubbles.appendChild(d);
+        el.bubbleList.appendChild(d);
         if(autoFollow){
           el.bubbles.scrollTo({ top: el.bubbles.scrollHeight, behavior: 'smooth' });
         }
@@ -499,7 +500,7 @@
         playback.index = 0;
         setPlayPauseLabel();
 
-        el.bubbles.innerHTML='';
+        el.bubbleList.innerHTML='';
         applySpeakerUnits();
 
         while(playback.active && playback.index < c.turns.length){
