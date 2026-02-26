@@ -1,62 +1,883 @@
 [
-  {"word":"wǒ","meaning":"I / me"},
-  {"word":"nǐ","meaning":"you"},
-  {"word":"tā","meaning":"he / she"},
-  {"word":"men","meaning":"plural marker (we/you all/they)"},
-  {"word":"shì","meaning":"to be"},
-  {"word":"bù","meaning":"not (present/future)"},
-  {"word":"méi","meaning":"not / did not (past, not-have)"},
-  {"word":"yǒu","meaning":"to have / there is"},
-  {"word":"zài","meaning":"at / in / currently doing"},
-  {"word":"qù","meaning":"to go"},
-  {"word":"lái","meaning":"to come"},
-  {"word":"huì","meaning":"can / know how to"},
-  {"word":"shuō","meaning":"to speak / say"},
-  {"word":"xuéxí","meaning":"to study / learn"},
-  {"word":"xǐhuān","meaning":"to like"},
-  {"word":"xiǎng","meaning":"to want / would like"},
-  {"word":"xiǎngyào","meaning":"to want"},
-  {"word":"yào","meaning":"to want / need"},
-  {"word":"mǎi","meaning":"to buy"},
-  {"word":"chī","meaning":"to eat"},
-  {"word":"hē","meaning":"to drink"},
-  {"word":"zhù","meaning":"to live / reside"},
-  {"word":"jiào","meaning":"to be called (name)"},
-  {"word":"bāngzhù","meaning":"to help"},
-  {"word":"dǒng","meaning":"to understand"},
-  {"word":"qǐng","meaning":"please"},
-  {"word":"zài...yí biàn","meaning":"again / one more time"},
-  {"word":"màn","meaning":"slow"},
-  {"word":"kuài","meaning":"fast"},
-  {"word":"hǎo","meaning":"good / okay"},
-  {"word":"hěn","meaning":"very"},
-  {"word":"xièxie","meaning":"thank you"},
-  {"word":"bú kèqi","meaning":"you’re welcome"},
-  {"word":"nǎlǐ","meaning":"where"},
-  {"word":"shénme","meaning":"what"},
-  {"word":"ma","meaning":"question particle"},
-  {"word":"duōshǎo","meaning":"how much / how many"},
-  {"word":"qián","meaning":"money"},
-  {"word":"kuài","meaning":"yuan/dollar (colloquial currency unit)"},
-  {"word":"yī","meaning":"one"},
-  {"word":"liǎng","meaning":"two"},
-  {"word":"sān","meaning":"three"},
-  {"word":"sì","meaning":"four"},
-  {"word":"wǔ","meaning":"five"},
-  {"word":"shí","meaning":"ten"},
-  {"word":"jǐ diǎn","meaning":"what time"},
-  {"word":"jiā","meaning":"home"},
-  {"word":"měiguó","meaning":"United States"},
-  {"word":"zhōngguó","meaning":"China"},
-  {"word":"zhōngwén","meaning":"Chinese language"},
-  {"word":"zhōngguócài","meaning":"Chinese food"},
-  {"word":"yǐnliào","meaning":"drink / beverage"},
-  {"word":"shuǐ","meaning":"water"},
-  {"word":"míngtiān","meaning":"tomorrow"},
-  {"word":"jīntiān","meaning":"today"},
-  {"word":"zuótiān","meaning":"yesterday"},
-  {"word":"guò","meaning":"(experience marker) have done"},
-  {"word":"cónglái","meaning":"ever / from ever"},
-  {"word":"néng","meaning":"be able to"},
-  {"word":"yìdiǎn","meaning":"a little"}
+  {
+    "word": "ba",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      13,
+      14
+    ]
+  },
+  {
+    "word": "bié",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "bú",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      6,
+      11,
+      12
+    ]
+  },
+  {
+    "word": "bāng",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12,
+      19
+    ]
+  },
+  {
+    "word": "bāngzhù",
+    "meaning": "to help",
+    "appearsIn": [
+      11,
+      19
+    ]
+  },
+  {
+    "word": "chá",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3
+    ]
+  },
+  {
+    "word": "chī",
+    "meaning": "to eat",
+    "appearsIn": [
+      3,
+      5,
+      10
+    ]
+  },
+  {
+    "word": "chīfàn",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "cì",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "cóng",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9,
+      18
+    ]
+  },
+  {
+    "word": "cónglái",
+    "meaning": "ever / from ever",
+    "appearsIn": [
+      5,
+      10
+    ]
+  },
+  {
+    "word": "de",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      9,
+      15
+    ]
+  },
+  {
+    "word": "duōshǎo",
+    "meaning": "how much / how many",
+    "appearsIn": [
+      2,
+      8,
+      13
+    ]
+  },
+  {
+    "word": "dìtú",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "fēicháng",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "guò",
+    "meaning": "(experience marker) have done",
+    "appearsIn": [
+      5,
+      10,
+      15
+    ]
+  },
+  {
+    "word": "gèngduō",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      14
+    ]
+  },
+  {
+    "word": "gānbēi",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3
+    ]
+  },
+  {
+    "word": "gāoxìng",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "gěi",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "gǎitiān",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5
+    ]
+  },
+  {
+    "word": "gǎnxiè",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "huì",
+    "meaning": "can / know how to",
+    "appearsIn": [
+      1,
+      7,
+      14,
+      15
+    ]
+  },
+  {
+    "word": "hái",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "hē",
+    "meaning": "to drink",
+    "appearsIn": [
+      3,
+      10
+    ]
+  },
+  {
+    "word": "hěn",
+    "meaning": "very",
+    "appearsIn": [
+      3,
+      4,
+      8,
+      15,
+      16,
+      18,
+      20
+    ]
+  },
+  {
+    "word": "hǎo",
+    "meaning": "good / okay",
+    "appearsIn": [
+      3,
+      4,
+      8,
+      9,
+      16,
+      20
+    ]
+  },
+  {
+    "word": "jìxù",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "jí",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "kuài",
+    "meaning": "yuan/dollar (colloquial currency unit)",
+    "appearsIn": [
+      2,
+      8,
+      15,
+      20
+    ]
+  },
+  {
+    "word": "kàn",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "kèqi",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      6,
+      11,
+      12
+    ]
+  },
+  {
+    "word": "kěyǐ",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "kǎ",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "le",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      8,
+      9,
+      12
+    ]
+  },
+  {
+    "word": "liànxí",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      14,
+      17
+    ]
+  },
+  {
+    "word": "liǎng",
+    "meaning": "two",
+    "appearsIn": [
+      2
+    ]
+  },
+  {
+    "word": "lái",
+    "meaning": "to come",
+    "appearsIn": [
+      1,
+      9,
+      18,
+      19
+    ]
+  },
+  {
+    "word": "láizì",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "lǚxíng",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "ma",
+    "meaning": "question particle",
+    "appearsIn": [
+      1,
+      3,
+      5,
+      6,
+      7,
+      14,
+      15,
+      16
+    ]
+  },
+  {
+    "word": "man",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "màn",
+    "meaning": "slow",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "méi",
+    "meaning": "not / did not (past, not-have)",
+    "appearsIn": [
+      5,
+      10,
+      15,
+      19
+    ]
+  },
+  {
+    "word": "mílù",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "měiguó",
+    "meaning": "United States",
+    "appearsIn": [
+      4,
+      18
+    ]
+  },
+  {
+    "word": "měiguórén",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "měitiān",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      14
+    ]
+  },
+  {
+    "word": "měiyuán",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "mǎi",
+    "meaning": "to buy",
+    "appearsIn": [
+      2,
+      8,
+      16
+    ]
+  },
+  {
+    "word": "niǔyuē",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "nàbiān",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "nàlǐ",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      9
+    ]
+  },
+  {
+    "word": "nǎlǐ",
+    "meaning": "where",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      9,
+      12,
+      18
+    ]
+  },
+  {
+    "word": "nǐ",
+    "meaning": "you",
+    "appearsIn": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      18,
+      19
+    ]
+  },
+  {
+    "word": "nǐde",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4
+    ]
+  },
+  {
+    "word": "nǐhǎo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      6
+    ]
+  },
+  {
+    "word": "qián",
+    "meaning": "money",
+    "appearsIn": [
+      2,
+      8,
+      13
+    ]
+  },
+  {
+    "word": "qù",
+    "meaning": "to go",
+    "appearsIn": [
+      5,
+      13,
+      15
+    ]
+  },
+  {
+    "word": "ránhòu",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      17,
+      20
+    ]
+  },
+  {
+    "word": "rènshi",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "shuākǎ",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "shuō",
+    "meaning": "to speak / say",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      14,
+      20
+    ]
+  },
+  {
+    "word": "shuǐ",
+    "meaning": "water",
+    "appearsIn": [
+      3,
+      6,
+      10,
+      13
+    ]
+  },
+  {
+    "word": "shénme",
+    "meaning": "what",
+    "appearsIn": [
+      2,
+      6,
+      8,
+      16
+    ]
+  },
+  {
+    "word": "shì",
+    "meaning": "to be",
+    "appearsIn": [
+      1,
+      2,
+      8,
+      9,
+      15,
+      16,
+      19
+    ]
+  },
+  {
+    "word": "shí",
+    "meaning": "ten",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "shōu",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "sān",
+    "meaning": "three",
+    "appearsIn": [
+      8
+    ]
+  },
+  {
+    "word": "tài",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      9
+    ]
+  },
+  {
+    "word": "wǎngshàng",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7
+    ]
+  },
+  {
+    "word": "wǒ",
+    "meaning": "I / me",
+    "appearsIn": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19
+    ]
+  },
+  {
+    "word": "wǒmen",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      13,
+      14,
+      15,
+      16,
+      17,
+      20
+    ]
+  },
+  {
+    "word": "xiànzài",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "xièxie",
+    "meaning": "thank you",
+    "appearsIn": [
+      11
+    ]
+  },
+  {
+    "word": "xièxiè",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      6,
+      19
+    ]
+  },
+  {
+    "word": "xiān",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "xiǎng",
+    "meaning": "to want / would like",
+    "appearsIn": [
+      2,
+      3,
+      5,
+      6,
+      8,
+      10,
+      15,
+      16
+    ]
+  },
+  {
+    "word": "xiǎngyào",
+    "meaning": "to want",
+    "appearsIn": [
+      3,
+      4,
+      6,
+      10,
+      13,
+      14
+    ]
+  },
+  {
+    "word": "xuéxiào",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4
+    ]
+  },
+  {
+    "word": "xuéxí",
+    "meaning": "to study / learn",
+    "appearsIn": [
+      4,
+      7,
+      14
+    ]
+  },
+  {
+    "word": "xībānyá",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "xūyào",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "xǐhuan",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      9
+    ]
+  },
+  {
+    "word": "xǐhuān",
+    "meaning": "to like",
+    "appearsIn": [
+      3,
+      4
+    ]
+  },
+  {
+    "word": "xǐshǒujiān",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "yào",
+    "meaning": "to want / need",
+    "appearsIn": [
+      2,
+      6,
+      8
+    ]
+  },
+  {
+    "word": "yìdiǎn",
+    "meaning": "a little",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "yìqǐ",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5
+    ]
+  },
+  {
+    "word": "yí",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "yě",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      10,
+      14,
+      15,
+      18
+    ]
+  },
+  {
+    "word": "yīdiǎn",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      7
+    ]
+  },
+  {
+    "word": "yīkuài",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2
+    ]
+  },
+  {
+    "word": "yǐnliào",
+    "meaning": "drink / beverage",
+    "appearsIn": [
+      3,
+      10
+    ]
+  },
+  {
+    "word": "yǒu",
+    "meaning": "to have / there is",
+    "appearsIn": [
+      3,
+      6
+    ]
+  },
+  {
+    "word": "yǔ",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "zhège",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      8,
+      16
+    ]
+  },
+  {
+    "word": "zhù",
+    "meaning": "to live / reside",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "zhōngguó",
+    "meaning": "China",
+    "appearsIn": [
+      3,
+      5,
+      10,
+      15
+    ]
+  },
+  {
+    "word": "zhōngguócài",
+    "meaning": "Chinese food",
+    "appearsIn": [
+      3,
+      5,
+      10
+    ]
+  },
+  {
+    "word": "zhōngwén",
+    "meaning": "Chinese language",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      14,
+      20
+    ]
+  },
+  {
+    "word": "zài",
+    "meaning": "at / in / currently doing",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      9,
+      12,
+      14
+    ]
+  }
 ]

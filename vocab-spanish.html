@@ -4,11 +4,11 @@
 </head><body>
 <header class="topbar"><button id="menuBtn" class="menu-btn">☰</button><h1>Spanish Word-by-Word</h1></header>
 <nav id="drawer" class="drawer"><a href="index.html">Main App</a><a href="video.html">Video Conversations</a><a href="grammar-chinese.html">Chinese Grammar</a><a href="grammar-spanish.html">Spanish Grammar</a><a href="vocab-spanish.html">Spanish Vocabulary</a><a href="vocab-chinese.html">Chinese Vocabulary</a></nav>
-<main class="wrap"><section class="card"><p class="muted">Single-word meanings (not full sentence translations).</p><table id="tbl"><thead><tr><th>Spanish Word</th><th>English Meaning</th></tr></thead><tbody></tbody></table></section></main>
+<main class="wrap"><section class="card"><p class="muted">Single-word meanings (not full sentence translations).</p><table id="tbl"><thead><tr><th>Spanish Word</th><th>English Meaning</th><th>In Conversations</th></tr></thead><tbody></tbody></table></section></main>
 <script>
 (async ()=>{
   const words=await (await fetch('wordbank-spanish.json',{cache:'no-store'})).json();
   const b=document.querySelector('#tbl tbody');
-  for(const w of words){ const tr=document.createElement('tr'); tr.innerHTML=`<td>${w.word}</td><td>${w.meaning}</td>`; b.appendChild(tr);} 
+  for(const w of words){ const tr=document.createElement('tr'); tr.innerHTML=`<td>${w.word}</td><td>${w.meaning}</td><td>${(w.appearsIn||[]).join(', ')}</td>`; b.appendChild(tr);} 
 })();
 </script><script src="nav.js"></script></body></html>

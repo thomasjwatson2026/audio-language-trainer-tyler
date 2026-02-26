@@ -1,62 +1,1169 @@
 [
-  {"word":"yo","meaning":"I"},
-  {"word":"tú","meaning":"you (informal)"},
-  {"word":"usted","meaning":"you (formal)"},
-  {"word":"él / ella","meaning":"he / she"},
-  {"word":"nosotros","meaning":"we"},
-  {"word":"ser","meaning":"to be (identity/permanent)"},
-  {"word":"estar","meaning":"to be (state/location)"},
-  {"word":"tener","meaning":"to have"},
-  {"word":"haber","meaning":"to have (auxiliary)"},
-  {"word":"hablar","meaning":"to speak"},
-  {"word":"aprender","meaning":"to learn"},
-  {"word":"entender","meaning":"to understand"},
-  {"word":"repetir","meaning":"to repeat"},
-  {"word":"ir","meaning":"to go"},
-  {"word":"vivir","meaning":"to live"},
-  {"word":"llamarse","meaning":"to be called (name oneself)"},
-  {"word":"gustar","meaning":"to like"},
-  {"word":"querer","meaning":"to want"},
-  {"word":"comprar","meaning":"to buy"},
-  {"word":"comer","meaning":"to eat"},
-  {"word":"beber","meaning":"to drink"},
-  {"word":"practicar","meaning":"to practice"},
-  {"word":"ayudar","meaning":"to help"},
-  {"word":"poder","meaning":"to be able to / can"},
-  {"word":"deber","meaning":"should / must"},
-  {"word":"sí","meaning":"yes"},
-  {"word":"no","meaning":"no / not"},
-  {"word":"hola","meaning":"hello"},
-  {"word":"gracias","meaning":"thank you"},
-  {"word":"de nada","meaning":"you’re welcome"},
-  {"word":"por favor","meaning":"please"},
-  {"word":"despacio","meaning":"slowly"},
-  {"word":"rápido","meaning":"fast"},
-  {"word":"otra vez","meaning":"again"},
-  {"word":"qué","meaning":"what"},
-  {"word":"dónde","meaning":"where"},
-  {"word":"cuándo","meaning":"when"},
-  {"word":"cómo","meaning":"how"},
-  {"word":"cuánto","meaning":"how much"},
-  {"word":"quién","meaning":"who"},
-  {"word":"agua","meaning":"water"},
-  {"word":"comida","meaning":"food"},
-  {"word":"precio","meaning":"price"},
-  {"word":"dólar","meaning":"dollar"},
-  {"word":"chino","meaning":"Chinese (language/person)"},
-  {"word":"español","meaning":"Spanish (language/person)"},
-  {"word":"americano","meaning":"American"},
-  {"word":"México","meaning":"Mexico"},
-  {"word":"China","meaning":"China"},
-  {"word":"Estados Unidos","meaning":"United States"},
-  {"word":"Nueva York","meaning":"New York"},
-  {"word":"casa","meaning":"house / home"},
-  {"word":"baño","meaning":"bathroom"},
-  {"word":"mapa","meaning":"map"},
-  {"word":"hambre","meaning":"hunger"},
-  {"word":"sueño","meaning":"sleepiness"},
-  {"word":"tiempo","meaning":"time"},
-  {"word":"mañana","meaning":"tomorrow / morning"},
-  {"word":"hoy","meaning":"today"},
-  {"word":"ayer","meaning":"yesterday"}
+  {
+    "word": "a",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      13,
+      15
+    ]
+  },
+  {
+    "word": "aceptamos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "aceptan",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "agua",
+    "meaning": "water",
+    "appearsIn": [
+      3,
+      6,
+      10,
+      13
+    ]
+  },
+  {
+    "word": "ahora",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "alex",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "algún",
+    "meaning": "some",
+    "appearsIn": [
+      5
+    ]
+  },
+  {
+    "word": "allá",
+    "meaning": "over there",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "allí",
+    "meaning": "there",
+    "appearsIn": [
+      9
+    ]
+  },
+  {
+    "word": "aprender",
+    "meaning": "to learn",
+    "appearsIn": [
+      4,
+      14
+    ]
+  },
+  {
+    "word": "aprendiendo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7,
+      14
+    ]
+  },
+  {
+    "word": "aprendiste",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7
+    ]
+  },
+  {
+    "word": "aprendí",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7
+    ]
+  },
+  {
+    "word": "aquí",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13,
+      19
+    ]
+  },
+  {
+    "word": "ayuda",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "ayudarme",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11
+    ]
+  },
+  {
+    "word": "ayudarte",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "ayudo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "baño",
+    "meaning": "bathroom",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "beber",
+    "meaning": "to drink",
+    "appearsIn": [
+      3,
+      10
+    ]
+  },
+  {
+    "word": "bien",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      4,
+      9,
+      19
+    ]
+  },
+  {
+    "word": "buena",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5
+    ]
+  },
+  {
+    "word": "bueno",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "cada",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      14
+    ]
+  },
+  {
+    "word": "chino",
+    "meaning": "Chinese (language/person)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "claro",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      17
+    ]
+  },
+  {
+    "word": "comer",
+    "meaning": "to eat",
+    "appearsIn": [
+      3,
+      10,
+      13
+    ]
+  },
+  {
+    "word": "comida",
+    "meaning": "food",
+    "appearsIn": [
+      3,
+      5,
+      10
+    ]
+  },
+  {
+    "word": "comido",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      10
+    ]
+  },
+  {
+    "word": "comprar",
+    "meaning": "to buy",
+    "appearsIn": [
+      2,
+      8,
+      16
+    ]
+  },
+  {
+    "word": "compro",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      8
+    ]
+  },
+  {
+    "word": "con",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "cuesta",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      8,
+      13
+    ]
+  },
+  {
+    "word": "cuánto",
+    "meaning": "how much",
+    "appearsIn": [
+      2,
+      8,
+      13
+    ]
+  },
+  {
+    "word": "cómo",
+    "meaning": "how",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "de",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      2,
+      6,
+      7,
+      9,
+      11,
+      18
+    ]
+  },
+  {
+    "word": "descansa",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      17
+    ]
+  },
+  {
+    "word": "despacio",
+    "meaning": "slowly",
+    "appearsIn": [
+      11,
+      19,
+      20
+    ]
+  },
+  {
+    "word": "diez",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "dos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2
+    ]
+  },
+  {
+    "word": "día",
+    "meaning": "day",
+    "appearsIn": [
+      5,
+      14
+    ]
+  },
+  {
+    "word": "dólar",
+    "meaning": "dollar",
+    "appearsIn": [
+      2
+    ]
+  },
+  {
+    "word": "dólares",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      8,
+      13
+    ]
+  },
+  {
+    "word": "dónde",
+    "meaning": "where",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      9,
+      12,
+      18
+    ]
+  },
+  {
+    "word": "el",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7,
+      12
+    ]
+  },
+  {
+    "word": "en",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      4,
+      5,
+      7,
+      9,
+      15,
+      20
+    ]
+  },
+  {
+    "word": "entiendo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      19
+    ]
+  },
+  {
+    "word": "eres",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9,
+      18
+    ]
+  },
+  {
+    "word": "es",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      8,
+      16,
+      17
+    ]
+  },
+  {
+    "word": "escuela",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4
+    ]
+  },
+  {
+    "word": "español",
+    "meaning": "Spanish (language/person)",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      14,
+      20
+    ]
+  },
+  {
+    "word": "estado",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      15
+    ]
+  },
+  {
+    "word": "estados",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      4,
+      9,
+      18
+    ]
+  },
+  {
+    "word": "esto",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      8,
+      16
+    ]
+  },
+  {
+    "word": "estoy",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7,
+      12,
+      14,
+      19
+    ]
+  },
+  {
+    "word": "está",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "favor",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      20
+    ]
+  },
+  {
+    "word": "gracias",
+    "meaning": "thank you",
+    "appearsIn": [
+      2,
+      6,
+      11,
+      12,
+      19
+    ]
+  },
+  {
+    "word": "gusta",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      4,
+      9
+    ]
+  },
+  {
+    "word": "gusto",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12,
+      18
+    ]
+  },
+  {
+    "word": "habla",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      20
+    ]
+  },
+  {
+    "word": "hablar",
+    "meaning": "to speak",
+    "appearsIn": [
+      1,
+      7
+    ]
+  },
+  {
+    "word": "hablas",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      4,
+      7,
+      14
+    ]
+  },
+  {
+    "word": "hablemos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "hablo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      7
+    ]
+  },
+  {
+    "word": "hambre",
+    "meaning": "hunger",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "has",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      15
+    ]
+  },
+  {
+    "word": "he",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      10,
+      15
+    ]
+  },
+  {
+    "word": "hola",
+    "meaning": "hello",
+    "appearsIn": [
+      1,
+      6
+    ]
+  },
+  {
+    "word": "hora",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      17
+    ]
+  },
+  {
+    "word": "idea",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5
+    ]
+  },
+  {
+    "word": "ido",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "igualmente",
+    "meaning": "likewise",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "ir",
+    "meaning": "to go",
+    "appearsIn": [
+      5,
+      15
+    ]
+  },
+  {
+    "word": "iremos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "juntos",
+    "meaning": "together",
+    "appearsIn": [
+      5
+    ]
+  },
+  {
+    "word": "la",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      4
+    ]
+  },
+  {
+    "word": "las",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      17
+    ]
+  },
+  {
+    "word": "llamas",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "llamo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "lo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      8
+    ]
+  },
+  {
+    "word": "los",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "luego",
+    "meaning": "later/then",
+    "appearsIn": [
+      17,
+      20
+    ]
+  },
+  {
+    "word": "línea",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      4,
+      7
+    ]
+  },
+  {
+    "word": "mapa",
+    "meaning": "map",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "me",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      4,
+      9,
+      18
+    ]
+  },
+  {
+    "word": "mexicana",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      5,
+      10
+    ]
+  },
+  {
+    "word": "muchas",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "mucho",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      18
+    ]
+  },
+  {
+    "word": "muy",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      16
+    ]
+  },
+  {
+    "word": "más",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      14,
+      20
+    ]
+  },
+  {
+    "word": "méxico",
+    "meaning": "Mexico",
+    "appearsIn": [
+      5,
+      15
+    ]
+  },
+  {
+    "word": "nada",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      6,
+      11
+    ]
+  },
+  {
+    "word": "necesito",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "no",
+    "meaning": "no / not",
+    "appearsIn": [
+      5,
+      11,
+      15,
+      19
+    ]
+  },
+  {
+    "word": "nueva",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "nunca",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      10
+    ]
+  },
+  {
+    "word": "otra",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      20
+    ]
+  },
+  {
+    "word": "para",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "perdido",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12
+    ]
+  },
+  {
+    "word": "perfecto",
+    "meaning": "perfect",
+    "appearsIn": [
+      8,
+      16,
+      20
+    ]
+  },
+  {
+    "word": "poco",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      7,
+      14,
+      17
+    ]
+  },
+  {
+    "word": "por",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      12,
+      20
+    ]
+  },
+  {
+    "word": "practicamos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      17
+    ]
+  },
+  {
+    "word": "practiquemos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      14
+    ]
+  },
+  {
+    "word": "primero",
+    "meaning": "first",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "pronto",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "puedes",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      11,
+      20
+    ]
+  },
+  {
+    "word": "puedo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      7
+    ]
+  },
+  {
+    "word": "quieres",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      6
+    ]
+  },
+  {
+    "word": "quiero",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  {
+    "word": "qué",
+    "meaning": "what",
+    "appearsIn": [
+      2,
+      6,
+      8,
+      9,
+      16,
+      17
+    ]
+  },
+  {
+    "word": "repetir",
+    "meaning": "to repeat",
+    "appearsIn": [
+      11,
+      20
+    ]
+  },
+  {
+    "word": "rápido",
+    "meaning": "fast",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "salud",
+    "meaning": "cheers / bless you",
+    "appearsIn": [
+      3
+    ]
+  },
+  {
+    "word": "sigamos",
+    "meaning": "let's continue",
+    "appearsIn": [
+      20
+    ]
+  },
+  {
+    "word": "son",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      17
+    ]
+  },
+  {
+    "word": "soy",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9,
+      18
+    ]
+  },
+  {
+    "word": "sueño",
+    "meaning": "sleepiness",
+    "appearsIn": [
+      17
+    ]
+  },
+  {
+    "word": "sí",
+    "meaning": "yes",
+    "appearsIn": [
+      6,
+      9,
+      11,
+      15,
+      16,
+      17
+    ]
+  },
+  {
+    "word": "también",
+    "meaning": "also",
+    "appearsIn": [
+      10,
+      14,
+      15
+    ]
+  },
+  {
+    "word": "tarjeta",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      16
+    ]
+  },
+  {
+    "word": "te",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      12,
+      18
+    ]
+  },
+  {
+    "word": "tengo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13,
+      17
+    ]
+  },
+  {
+    "word": "tequila",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      10
+    ]
+  },
+  {
+    "word": "tiene",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      3,
+      6
+    ]
+  },
+  {
+    "word": "tienes",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      13
+    ]
+  },
+  {
+    "word": "todavía",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "todo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "tranquilo",
+    "meaning": "calm down",
+    "appearsIn": [
+      19
+    ]
+  },
+  {
+    "word": "tres",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      8,
+      17
+    ]
+  },
+  {
+    "word": "té",
+    "meaning": "tea",
+    "appearsIn": [
+      3
+    ]
+  },
+  {
+    "word": "un",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      2,
+      7,
+      14,
+      17
+    ]
+  },
+  {
+    "word": "una",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "unidos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      4,
+      9,
+      18
+    ]
+  },
+  {
+    "word": "vamos",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      5,
+      13
+    ]
+  },
+  {
+    "word": "vez",
+    "meaning": "time/instance",
+    "appearsIn": [
+      11,
+      15,
+      20
+    ]
+  },
+  {
+    "word": "viajar",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      15
+    ]
+  },
+  {
+    "word": "vives",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "vivir",
+    "meaning": "to live",
+    "appearsIn": [
+      9
+    ]
+  },
+  {
+    "word": "vivo",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  },
+  {
+    "word": "yo",
+    "meaning": "I",
+    "appearsIn": [
+      3,
+      10,
+      14,
+      15
+    ]
+  },
+  {
+    "word": "york",
+    "meaning": "(add meaning)",
+    "appearsIn": [
+      1,
+      9
+    ]
+  }
 ]
