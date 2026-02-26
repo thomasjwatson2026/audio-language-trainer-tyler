@@ -72,7 +72,6 @@
         <button id="playEs" class="primary">▶️ Play Scene (Spanish)</button>
         <button id="playZh" class="primary">▶️ Play Scene (Chinese)</button>
         <button id="stop">⏹️ Stop</button>
-        <button id="refresh">♻️ Hard Refresh</button>
         <button id="loopMode" title="Loop mode">🔁 Loop: Off</button>
       </section>
 
@@ -81,7 +80,7 @@
         <div class="people">
           <div class="person">
             <div id="a" class="avatar face-a unit-peasant">
-              <img id="aPortrait" class="portrait" src="assets/avatars/peasant.svg" alt="Speaker A avatar" />
+              <img id="aPortrait" class="portrait" src="assets/avatars/peasant.png" alt="Speaker A avatar" />
               <span class="helm"></span>
               <span class="badge" id="aBadge">🧱 Peasant</span>
               <span class="eye eye-l" id="aEyeL"></span><span class="eye eye-r" id="aEyeR"></span>
@@ -91,7 +90,7 @@
           </div>
           <div class="person">
             <div id="b" class="avatar face-b unit-peon">
-              <img id="bPortrait" class="portrait" src="assets/avatars/footman.svg" alt="Speaker B avatar" />
+              <img id="bPortrait" class="portrait" src="assets/avatars/footman.png" alt="Speaker B avatar" />
               <span class="helm"></span>
               <span class="badge" id="bBadge">🐲 Peon</span>
               <span class="eye eye-l" id="bEyeL"></span><span class="eye eye-r" id="bEyeR"></span>
@@ -104,7 +103,7 @@
     </main>
 
     <script>
-      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),refresh:document.getElementById('refresh'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aPortrait:document.getElementById('aPortrait'),bPortrait:document.getElementById('bPortrait'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
+      const el={app:document.querySelector('.app'),conv:document.getElementById('conv'),speedEs:document.getElementById('speedEs'),speedZh:document.getElementById('speedZh'),playEs:document.getElementById('playEs'),playZh:document.getElementById('playZh'),stop:document.getElementById('stop'),loopMode:document.getElementById('loopMode'),a:document.getElementById('a'),b:document.getElementById('b'),aBadge:document.getElementById('aBadge'),bBadge:document.getElementById('bBadge'),aName:document.getElementById('aName'),bName:document.getElementById('bName'),aPortrait:document.getElementById('aPortrait'),bPortrait:document.getElementById('bPortrait'),mouthA:document.getElementById('mouthA'),mouthB:document.getElementById('mouthB'),aEyeL:document.getElementById('aEyeL'),aEyeR:document.getElementById('aEyeR'),bEyeL:document.getElementById('bEyeL'),bEyeR:document.getElementById('bEyeR'),bubbles:document.getElementById('bubbles')};
       const audio=new Audio(); audio.preload='auto';
       const previewAudio=new Audio(); previewAudio.preload='auto';
       let convos=[];
@@ -581,7 +580,7 @@
       }
 
       function avatarUrl(unitKey){
-        return `./assets/avatars/${unitKey}.svg?v=2`;
+        return `./assets/avatars/${unitKey}.png?v=3`;
       }
 
       function applySpeakerUnits(){
@@ -624,11 +623,6 @@
         savePlayerPrefs();
         renderTransportButtons();
       });
-
-      el.refresh.addEventListener('click', async ()=>{
-        try {
-          if (window.caches && caches.keys) {
-            const keys = await caches.keys();
             await Promise.all(keys.map((k)=>caches.delete(k)));
           }
           if ('serviceWorker' in navigator) {
